@@ -11,7 +11,7 @@ ENV NODE_ENV=production
 
 RUN npm i --location=global pnpm
 
-WORKDIR /usr/src/raya
+WORKDIR /home/node/raya
 
 COPY package.json pnpm-lock.json ./
 RUN pnpm run setup
