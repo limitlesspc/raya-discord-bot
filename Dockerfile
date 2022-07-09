@@ -7,8 +7,7 @@ RUN apt autoremove -y
 RUN apt install mesa-utils xvfb libgl1-mesa-dri libglapi-mesa libosmesa6 -y
 RUN apt install curl python-is-python3 -y
 
-RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | -E bash -
-RUN apt-get install -y nodejs
+FROM node:16
 
 RUN npm i -g pnpm
 
