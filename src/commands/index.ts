@@ -26,3 +26,4 @@ export * as cipher from './cipher';
 export * as img from './img';
 export * as ratio from './ratio';
 export * as y7 from './y7';
+export * as youtube from './youtube';
