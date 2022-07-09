@@ -7,10 +7,9 @@ RUN apt autoremove -y
 RUN apt install -y python-is-python3
 
 FROM node:16
+ENV NODE_ENV=production
 
 RUN npm i -g pnpm
-
-ENV NODE_ENV=production
 
 COPY package.json pnpm-lock.json ./
 RUN pnpm run setup
