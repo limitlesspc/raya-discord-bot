@@ -13,12 +13,6 @@ import type {
   OptionValue
 } from '$services/command';
 
-import './env';
-
-const { NAME, DISCORD_TOKEN } = process.env;
-console.log(`⏳ ${NAME} is starting...`);
-console.time(NAME);
-
 const { default: oddNameCommands = {}, ...normalCommands } = rawCommands;
 const commands = Object.fromEntries(
   Object.entries({
@@ -143,9 +137,4 @@ client
       return i.respond(options.map(o => ({ name: o, value: o })));
     }
   })
-  .on('interactionError', console.error)
-  .once('ready', () => {
-    console.timeEnd(NAME);
-    console.log(`✅ ${NAME} is ready!`);
-  })
-  .login(DISCORD_TOKEN);
+  .on('interactionError', console.error);

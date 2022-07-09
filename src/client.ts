@@ -1,5 +1,11 @@
 import { Client, Options } from 'discord.js';
 
+import './env';
+
+const { NAME, DISCORD_TOKEN } = process.env;
+console.log(`⏳ ${NAME} is starting...`);
+console.time(NAME);
+
 const client = new Client({
   intents: [
     'GUILDS',
@@ -29,3 +35,10 @@ const client = new Client({
   })
 });
 export default client;
+
+client
+  .once('ready', () => {
+    console.timeEnd(NAME);
+    console.log(`✅ ${NAME} is ready!`);
+  })
+  .login(DISCORD_TOKEN);
