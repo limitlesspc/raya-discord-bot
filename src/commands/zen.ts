@@ -1,6 +1,6 @@
 import { fetch } from 'undici';
 
-import command from './command';
+import command from '$services/command';
 
 const url = 'https://api.github.com/zen';
 

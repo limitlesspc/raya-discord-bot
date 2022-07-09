@@ -1,4 +1,4 @@
-import command from './command';
+import command from '$services/command';
 
 const answers = [
   'As I see it, yes.',
@@ -30,6 +30,6 @@ export default command(
   },
   i => {
     const answer = answers[Math.floor(Math.random() * answers.length)];
-    return i.reply(answer);
+    return i.reply({ content: answer });
   }
 );

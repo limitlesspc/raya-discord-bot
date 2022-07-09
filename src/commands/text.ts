@@ -1,5 +1,5 @@
-import { getText } from '../api/y7';
-import command from './command';
+import { getText } from '$services/y7';
+import command from '$services/command';
 
 export default command(
   {

@@ -1,5 +1,5 @@
 import prisma from '$services/prisma';
-import command from '../../command';
+import command from '$services/command';
 
 export default command(
   {

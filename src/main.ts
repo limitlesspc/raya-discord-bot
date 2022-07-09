@@ -1,53 +1,23 @@
 import {
   AutocompleteInteraction,
-  Client,
   CommandInteraction,
-  MessageEmbed,
-  Options
+  MessageEmbed
 } from 'discord.js';
 
+import client from './client';
 import * as rawCommands from './commands';
 import type {
   Command,
   CommandGroups,
   Commands,
   OptionValue
-} from './commands/command';
+} from '$services/command';
 
 import './env';
 
 const { NAME, DISCORD_TOKEN } = process.env;
 console.log(`⏳ ${NAME} is starting...`);
 console.time(NAME);
-
-const client = new Client({
-  intents: [
-    'GUILDS',
-    'GUILD_MESSAGES',
-    'GUILD_MESSAGE_REACTIONS',
-    'GUILD_MEMBERS',
-    'DIRECT_MESSAGES'
-  ],
-  makeCache: Options.cacheWithLimits({
-    ApplicationCommandManager: 0,
-    BaseGuildEmojiManager: 0,
-    GuildEmojiManager: 0,
-    GuildMemberManager: 0,
-    GuildBanManager: 0,
-    GuildInviteManager: 0,
-    GuildScheduledEventManager: 0,
-    GuildStickerManager: 0,
-    MessageManager: 0,
-    PresenceManager: 0,
-    ReactionManager: 0,
-    ReactionUserManager: 0,
-    StageInstanceManager: 0,
-    ThreadManager: 0,
-    ThreadMemberManager: 0,
-    UserManager: 0,
-    VoiceStateManager: 0
-  })
-});
 
 const { default: oddNameCommands = {}, ...normalCommands } = rawCommands;
 const commands = Object.fromEntries(

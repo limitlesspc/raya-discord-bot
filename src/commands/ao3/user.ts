@@ -1,5 +1,5 @@
 import { getNameFromURL, getUser } from '../../api/ao3';
-import command from '../command';
+import command from '$services/command';
 import { createEmbed } from './embed';
 
 export default command(

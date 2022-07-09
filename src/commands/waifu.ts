@@ -2,7 +2,7 @@ import { MessageEmbed } from 'discord.js';
 import { fetch } from 'undici';
 
 import { incCount } from '$services/users';
-import command from './command';
+import command from '$services/command';
 
 interface Response {
   images: [

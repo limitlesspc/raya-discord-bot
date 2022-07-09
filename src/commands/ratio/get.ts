@@ -2,7 +2,7 @@ import { shuffle } from '@limitlesspc/limitless';
 
 import prisma from '$services/prisma';
 import { incCount } from '$services/users';
-import command from '../command';
+import command from '$services/command';
 
 const NUM_RATIOS = 50;
 

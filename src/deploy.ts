@@ -7,7 +7,7 @@ import type {
   CommandGroups,
   CommandOptionType,
   Commands
-} from './commands/command';
+} from '../services/command';
 
 import './env';
 

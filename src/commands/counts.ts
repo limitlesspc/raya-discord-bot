@@ -1,7 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 
 import { getUser } from '$services/users';
-import command from './command';
+import command from '$services/command';
 
 export default command(
   {

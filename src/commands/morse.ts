@@ -1,4 +1,4 @@
-import command from './command';
+import command from '$services/command';
 
 const codes: Record<string, string> = {
   a: '.-',

@@ -1,7 +1,7 @@
 import { arch, platform, versions } from 'node:process';
 import { MessageEmbed } from 'discord.js';
 
-import command from './command';
+import command from '$services/command';
 
 export default command(
   {

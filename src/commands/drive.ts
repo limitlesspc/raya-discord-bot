@@ -1,4 +1,4 @@
-import command from './command';
+import command from '$services/command';
 
 const googleDriveURLRegex =
   /^https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9-_]+)\/view$/;
