@@ -1,4 +1,4 @@
-import { getNameFromURL, getUser } from '../../api/ao3';
+import { getNameFromURL, getUser } from '$services/ao3';
 import command from '$services/command';
 import { createEmbed } from './embed';
 

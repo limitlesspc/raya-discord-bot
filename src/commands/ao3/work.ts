@@ -5,7 +5,7 @@ import {
   getWorkId,
   ratings,
   relationshipOrientations
-} from '../../api/ao3';
+} from '$services/ao3';
 import command from '$services/command';
 import { createEmbed } from './embed';
 
