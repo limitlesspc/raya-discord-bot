@@ -1,4 +1,4 @@
-import type { CommandInteraction, User } from 'discord.js';
+import type { CommandInteraction, MessageAttachment, User } from 'discord.js';
 
 export interface CommandOptionType {
   int: number;
@@ -6,6 +6,7 @@ export interface CommandOptionType {
   string: string;
   user: User;
   choice: string;
+  attachment: MessageAttachment;
 }
 type Type = keyof CommandOptionType;
 

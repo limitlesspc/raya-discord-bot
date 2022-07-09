@@ -94,6 +94,9 @@ client
                 case 'choice':
                   value = i.options.getString(name);
                   break;
+                case 'attachment':
+                  value = i.options.getAttachment(name);
+                  break;
               }
               return [
                 name,

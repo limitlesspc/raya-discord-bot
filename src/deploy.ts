@@ -19,7 +19,8 @@ const commandOptionTypeMap: Record<
   float: ApplicationCommandOptionType.Number,
   string: ApplicationCommandOptionType.String,
   user: ApplicationCommandOptionType.User,
-  choice: ApplicationCommandOptionType.String
+  choice: ApplicationCommandOptionType.String,
+  attachment: ApplicationCommandOptionType.Attachment
 };
 
 console.log('Commands registering...');

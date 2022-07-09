@@ -25,8 +25,6 @@ export default command(
         }))
       );
     else embed.setDescription('No counts found');
-    return i.reply({
-      embeds: [embed]
-    });
+    return i.reply({ embeds: [embed] });
   }
 );
