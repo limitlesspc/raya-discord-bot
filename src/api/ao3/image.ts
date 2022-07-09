@@ -1,4 +1,4 @@
-import { createCanvas, loadImage, type Image } from 'canvas';
+import { createCanvas, loadImage, type Image } from '@napi-rs/canvas';
 
 import { symbolsOrigin, Work } from './work';
 
