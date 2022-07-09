@@ -11,8 +11,6 @@ FROM node:16
 
 RUN npm i -g pnpm
 
-WORKDIR /raya
-
 ENV NODE_ENV=production
 
 COPY ["package.json", "pnpm-lock.json", "./"]
