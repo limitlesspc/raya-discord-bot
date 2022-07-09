@@ -82,21 +82,17 @@ function getCommand(
   const command = commands[i.commandName];
   if (!command) return;
 
-  const subGroupName = i.options.getSubcommandGroup();
+  const subGroupName = i.options.getSubcommandGroup(false);
   if (subGroupName) {
     const subGroup = (command as CommandGroups)[subGroupName];
     if (!subGroup) return;
 
     const subName = i.options.getSubcommand();
-    if (!subName) return;
-    if (subName) {
-      const subCommand = subGroup[subName];
-      return subCommand;
-    }
+    const subCommand = subGroup[subName];
+    return subCommand;
   }
 
-  const subName = i.options.getSubcommand();
-  if (!subName) return;
+  const subName = i.options.getSubcommand(false);
   if (subName) {
     const subCommand = (command as Commands)[subName];
     return subCommand;

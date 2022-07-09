@@ -1,3 +1,5 @@
+import { fetch } from 'undici';
+
 import command from './command';
 
 type Response = {
@@ -15,7 +17,7 @@ export default command(
   },
   async i => {
     const response = await fetch('https://api.thecatapi.com/v1/images/search');
-    const data: Response = await response.json();
+    const data = (await response.json()) as Response;
     const [cat] = data;
     if (!cat) throw new Error('No cat found');
     return i.reply(cat.url);
