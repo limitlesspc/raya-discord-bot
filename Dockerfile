@@ -9,7 +9,9 @@ RUN apt install -y python-is-python3
 FROM node:16
 ENV NODE_ENV=production
 
-RUN npm i -g pnpm
+RUN npm i --location=global pnpm
+
+WORKDIR /usr/src/raya
 
 COPY package.json pnpm-lock.json ./
 RUN pnpm run setup
