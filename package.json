@@ -12,6 +12,7 @@
     "update": "NPM_CHECK_INSTALLER=pnpm npm-check -u",
     "start": "node -r @swc-node/register src/main.ts",
     "deploy": "node -r @swc-node/register src/deploy.ts",
+    "deploy:prod": "PROD=true node -r @swc-node/register src/deploy.ts",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -22,7 +23,6 @@
     "@limitlesspc/limitless": "^0.0.2",
     "@napi-rs/canvas": "^0.1.25",
     "@prisma/client": "4.0.0",
-    "axios": "^0.27.2",
     "cheerio": "1.0.0-rc.12",
     "discord-api-types": "^0.36.1",
     "discord.js": "13.8.1",

@@ -12,7 +12,6 @@ specifiers:
   '@types/node': 18.0.3
   '@typescript-eslint/eslint-plugin': 5.30.5
   '@typescript-eslint/parser': 5.30.5
-  axios: ^0.27.2
   cheerio: 1.0.0-rc.12
   discord-api-types: ^0.36.1
   discord.js: 13.8.1
@@ -35,7 +34,6 @@ dependencies:
   '@limitlesspc/limitless': 0.0.2
   '@napi-rs/canvas': 0.1.25
   '@prisma/client': 4.0.0_prisma@4.0.0
-  axios: 0.27.2
   cheerio: 1.0.0-rc.12
   discord-api-types: 0.36.1
   discord.js: 13.8.1
