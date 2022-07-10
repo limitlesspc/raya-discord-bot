@@ -15,8 +15,12 @@ export default command(
             },
             where: {
               fileName: {
-                contains: query
+                contains: query,
+                mode: 'insensitive'
               }
+            },
+            orderBy: {
+              fileName: 'asc'
             },
             take: 5
           });

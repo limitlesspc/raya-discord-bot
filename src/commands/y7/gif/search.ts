@@ -9,18 +9,22 @@ export default command(
         type: 'string',
         desc: 'The file name to search for',
         autocomplete: async query => {
-          const images = await prisma.y7GIF.findMany({
+          const gifs = await prisma.y7GIF.findMany({
             select: {
               fileName: true
             },
             where: {
               fileName: {
-                contains: query
+                contains: query,
+                mode: 'insensitive'
               }
+            },
+            orderBy: {
+              fileName: 'asc'
             },
             take: 5
           });
-          return images.map(({ fileName }) => fileName);
+          return gifs.map(({ fileName }) => fileName);
         }
       }
     }
