@@ -11,7 +11,6 @@
     "update": "NPM_CHECK_INSTALLER=pnpm npm-check -u",
     "start": "node -r @swc-node/register src/main.ts",
     "deploy": "node -r @swc-node/register src/deploy.ts",
-    "deploy:prod": "NODE_ENV=production node -r @swc-node/register src/deploy.ts",
     "lint": "eslint ."
   },
   "dependencies": {
