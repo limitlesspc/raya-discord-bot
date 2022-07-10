@@ -33,7 +33,7 @@ export default command(
     if (artist_url.startsWith('http'))
       embed.setAuthor({ name: artist, url: artist_url });
 
-    await i.reply({ embeds: [embed], ephemeral: true });
+    await i.reply({ embeds: [embed] });
     return incCount(i.user.id, 'weeb');
   }
 );

@@ -62,7 +62,10 @@ export default command(
         name: image.source,
         url: image.source
       })
-      .setFooter('Powered by waifu.im', 'https://waifu.im/favicon.ico')
+      .setFooter({
+        text: 'Powered by waifu.im',
+        iconURL: 'https://waifu.im/favicon.ico'
+      })
       .setTimestamp(new Date(image.uploaded_at));
 
     await i.reply({ embeds: [embed], ephemeral: true });
