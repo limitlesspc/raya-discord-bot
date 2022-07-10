@@ -24,8 +24,9 @@ export async function getUser(name: string): Promise<User> {
   return {
     name,
     url: `${query}${name}`,
-    iconURL: `${ORIGIN}${$(
-      '#main > div.user.home > div.primary.header.module > p > a > img'
-    ).attr('src')}`
+    iconURL:
+      $('#main > div.user.home > div.primary.header.module > p > a > img').attr(
+        'src'
+      ) || ''
   };
 }
