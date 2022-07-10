@@ -3,7 +3,7 @@
 This is a multi-purpose Discord bot I created for fun
 
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
-[![license](https://img.shields.io/github/license/limitlesspc/discord-bots.svg)](LICENSE)
+[![license](https://img.shields.io/github/license/limitlesspc/raya-discord-bot.svg)](LICENSE)
 
 ## Table of Contents
 
