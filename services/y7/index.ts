@@ -1,5 +1,6 @@
 import { load } from 'cheerio';
 import { random } from '@limitlesspc/limitless';
+import { fetch } from 'undici';
 
 export const FILES_ORIGIN = 'https://files.yyyyyyy.info';
 
