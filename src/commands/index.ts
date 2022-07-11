@@ -3,6 +3,7 @@ import ball from './8ball';
 export { default as cat } from './cat';
 export { default as catboy } from './catboy';
 export { default as chaos } from './chaos';
+export { default as chicken } from './chicken';
 export { default as counts } from './counts';
 export { default as drive } from './drive';
 export { default as hex } from './hex';

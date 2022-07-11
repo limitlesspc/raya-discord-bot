@@ -1,3 +1,4 @@
+import { MessageEmbed } from 'discord.js';
 import { fetch } from 'undici';
 
 import command from '$services/command';
@@ -20,6 +21,14 @@ export default command(
     const data = (await response.json()) as Response;
     const [cat] = data;
     if (!cat) throw new Error('No cat found');
-    return i.reply(cat.url);
+
+    const embed = new MessageEmbed()
+      .setTitle('Cat')
+      .setImage(cat.url)
+      .setFooter({
+        text: 'Powered by The Cat API',
+        iconURL: 'https://thecatapi.com/favicon.ico'
+      });
+    return i.reply({ embeds: [embed] });
   }
 );
