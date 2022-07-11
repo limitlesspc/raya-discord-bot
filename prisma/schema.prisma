@@ -34,11 +34,14 @@ model Ratio {
   text String @unique
 }
 
-model Image {
+model File {
   id String @id @default(cuid())
 
-  fileName String @unique
-  size     Int
+  name      String
+  extension String
+  size      Int
+
+  @@unique([name, extension])
 }
 
 model Y7Image {

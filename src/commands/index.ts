@@ -28,7 +28,7 @@ export default { '8ball': ball };
 
 export * as ao3 from './ao3';
 export * as cipher from './cipher';
-export * as img from './img';
+export * as file from './file';
 export * as ratio from './ratio';
 export * as y7 from './y7';
 export * as youtube from './youtube';
