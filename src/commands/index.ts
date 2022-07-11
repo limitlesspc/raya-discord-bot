@@ -1,5 +1,6 @@
 import ball from './8ball';
 
+export { default as bubble } from './bubble';
 export { default as cat } from './cat';
 export { default as catboy } from './catboy';
 export { default as chaos } from './chaos';

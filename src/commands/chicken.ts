@@ -2,7 +2,8 @@ import { random } from '@limitlesspc/limitless';
 
 import command from '$services/command';
 
-const fileNames = ['explode.mp4', 'stick.png'];
+const stickenFileName = 'stick.png';
+const fileNames = [stickenFileName, 'explode.mp4', 'ballin.mp4'];
 
 export default command(
   {
