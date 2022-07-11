@@ -3,7 +3,9 @@ import { MessageAttachment } from 'discord.js';
 import prisma from '$services/prisma';
 import command from '$services/command';
 
-const extensions = {
+const types = ['image', 'video', 'audio'] as const;
+type Type = typeof types[number];
+const extensions: Record<Type, string[]> = {
   image: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
   video: ['mp4', 'mov', 'mkv', 'webm'],
   audio: ['mp3', 'wav', 'ogg']
@@ -16,29 +18,13 @@ export default command(
       type: {
         type: 'choice',
         desc: 'Type of file to get',
-        choices: ['image', 'video', 'audio'] as const,
+        choices: types,
         optional: true
       }
     }
   },
   async (i, { type }) => {
-    const where = type
-      ? {
-          extension: {
-            in: extensions[type]
-          }
-        }
-      : undefined;
-    const count = await prisma.file.count({ where });
-    const skip = Math.floor(Math.random() * count);
-    const file = await prisma.file.findFirst({
-      select: {
-        name: true,
-        extension: true
-      },
-      where,
-      skip
-    });
+    const file = await getRandomFile(type);
     if (!file) return i.reply('No file found');
     const { name, extension } = file;
 
@@ -46,8 +32,30 @@ export default command(
     const url = `${process.env.FILES_ORIGIN}/discord/${fileName}`;
     if (['mp3', 'wav', 'ogg'].includes(extension))
       return i.reply({
-        attachments: [new MessageAttachment(url, fileName)]
+        content: null,
+        files: [new MessageAttachment(url, fileName)]
       });
     return i.reply(url);
   }
 );
+
+export async function getRandomFile(type?: Type) {
+  const where = type
+    ? {
+        extension: {
+          in: extensions[type]
+        }
+      }
+    : undefined;
+  const count = await prisma.file.count({ where });
+  const skip = Math.floor(Math.random() * count);
+  const file = await prisma.file.findFirst({
+    select: {
+      name: true,
+      extension: true
+    },
+    where,
+    skip
+  });
+  return file;
+}

@@ -10,8 +10,9 @@
     "build": "prisma generate",
     "update": "NPM_CHECK_INSTALLER=pnpm npm-check -u",
     "start": "node -r @swc-node/register src/main.ts",
-    "deploy": "node -r @swc-node/register src/deploy.ts",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "ava",
+    "deploy": "node -r @swc-node/register src/deploy.ts"
   },
   "dependencies": {
     "@discordjs/builders": "^0.15.0",
@@ -34,6 +35,7 @@
     "@types/node": "18.0.3",
     "@typescript-eslint/eslint-plugin": "5.30.5",
     "@typescript-eslint/parser": "5.30.5",
+    "ava": "^4.3.1",
     "eslint": "8.19.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "17.0.0",
