@@ -1,9 +1,10 @@
 import type { CommandInteraction, MessageAttachment, User } from 'discord.js';
 
 export interface CommandOptionType {
+  string: string;
   int: number;
   float: number;
-  string: string;
+  bool: boolean;
   user: User;
   choice: string;
   attachment: MessageAttachment;

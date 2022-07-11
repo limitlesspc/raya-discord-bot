@@ -22,6 +22,7 @@ specifiers:
   eslint-config-prettier: 8.5.0
   eslint-plugin-import: 2.26.0
   genius-lyrics: ^4.3.8
+  nekos-best.js: ^5.1.0
   owofy: 1.0.2
   prisma: 4.0.0
   typescript: 4.7.4
@@ -40,6 +41,7 @@ dependencies:
   discord.js: 13.8.1
   dotenv: 16.0.1
   genius-lyrics: 4.3.8
+  nekos-best.js: 5.1.0
   owofy: 1.0.2
   undici: 5.6.1
 
@@ -2020,6 +2022,13 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
+  /nekos-best.js/5.1.0:
+    resolution: {integrity: sha512-KUREmvMKLdSeJOkKUlk3cmkSe+5ywY7lHNcRErvzAVlKywxRUD1i++CCpSxxDYRMvUbff+IjW+fOgU1FuxC7ng==}
+    engines: {node: '>=15.14.0'}
+    dependencies:
+      petitio: 1.4.0
+    dev: false
+
   /node-fetch/2.6.7:
     resolution: {integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==}
     engines: {node: 4.x || >=6.0.0}
@@ -2176,6 +2185,11 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
     dev: true
+
+  /petitio/1.4.0:
+    resolution: {integrity: sha512-9LaVd/5BLmbNU8Q4Ax8NezihiPt2ISNqi2vKilEchSSf+YSOXxfsLUb0SUmDskm1WkBOVTsqdyuyYI0RYKqr0Q==}
+    engines: {node: '>=12.3.0'}
+    dev: false
 
   /picomatch/2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}

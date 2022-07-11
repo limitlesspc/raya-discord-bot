@@ -1,5 +1,5 @@
 import { MessageEmbed } from 'discord.js';
-import { fetch } from 'undici';
+import { fetchRandom } from 'nekos-best.js';
 
 import { incCount } from '$services/users';
 import command from '$services/command';
@@ -32,18 +32,6 @@ const CATEGORIES = [
   'shoot'
 ] as const;
 
-interface Response {
-  results: [
-    {
-      artist_href?: string;
-      artist_name?: string;
-      source_url?: string;
-      anime_name?: string;
-      url: string;
-    }
-  ];
-}
-
 export default command(
   {
     desc: 'Sends a random nekos.best image',
@@ -52,25 +40,22 @@ export default command(
         type: 'choice',
         desc: 'Category in which the image will be in',
         choices: CATEGORIES,
-        default: 'neko'
+        optional: true
       }
     }
   },
   async (i, { category }) => {
-    const response = await fetch(`https://nekos.best/api/v2/${category}`);
-    const data = (await response.json()) as Response;
-    const result = data.results[0];
-
     const {
-      url,
-      artist_name = '',
-      artist_href,
-      source_url,
-      anime_name
-    } = result;
-    const embed = new MessageEmbed()
-      .setImage(url)
-      .setAuthor({ name: artist_name, url: artist_href });
+      results: [result]
+    } = await fetchRandom(category);
+    if (!result) return i.reply('No 猫 found');
+
+    const { url, artist_name, artist_href, source_url, anime_name } = result;
+    const embed = new MessageEmbed().setImage(url).setFooter({
+      text: 'Powered by nekos.best',
+      iconURL: 'https://nekos.best/favicon.png'
+    });
+    if (artist_name) embed.setAuthor({ name: artist_name, url: artist_href });
     if (source_url) embed.setURL(source_url);
     if (anime_name) embed.setTitle(anime_name);
 

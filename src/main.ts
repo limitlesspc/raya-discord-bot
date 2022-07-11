@@ -79,14 +79,17 @@ client
             Object.entries(options).map(([name, { type, default: d }]) => {
               let value: OptionValue | null;
               switch (type) {
+                case 'string':
+                  value = i.options.getString(name);
+                  break;
                 case 'int':
                   value = i.options.getInteger(name);
                   break;
                 case 'float':
                   value = i.options.getNumber(name);
                   break;
-                case 'string':
-                  value = i.options.getString(name);
+                case 'bool':
+                  value = i.options.getBoolean(name);
                   break;
                 case 'user':
                   value = i.options.getUser(name);

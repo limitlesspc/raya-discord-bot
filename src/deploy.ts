@@ -15,9 +15,10 @@ const commandOptionTypeMap: Record<
   keyof CommandOptionType,
   ApplicationCommandOptionType
 > = {
+  string: ApplicationCommandOptionType.String,
   int: ApplicationCommandOptionType.Integer,
   float: ApplicationCommandOptionType.Number,
-  string: ApplicationCommandOptionType.String,
+  bool: ApplicationCommandOptionType.Boolean,
   user: ApplicationCommandOptionType.User,
   choice: ApplicationCommandOptionType.String,
   attachment: ApplicationCommandOptionType.Attachment
