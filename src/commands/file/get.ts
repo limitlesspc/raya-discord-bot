@@ -1,3 +1,5 @@
+import { MessageAttachment } from 'discord.js';
+
 import prisma from '$services/prisma';
 import command from '$services/command';
 
@@ -19,7 +21,12 @@ export default command(
     if (!file) return i.reply('No file found');
     const { name, extension } = file;
 
-    const url = `${process.env.FILES_ORIGIN}/discord/${name}.${extension}`;
+    const fileName = `${name}.${extension}`;
+    const url = `${process.env.FILES_ORIGIN}/discord/${fileName}`;
+    if (['mp3', 'wav', 'ogg'].includes(extension))
+      return i.reply({
+        attachments: [new MessageAttachment(url, fileName)]
+      });
     return i.reply(url);
   }
 );
