@@ -22,20 +22,21 @@ export default command(
     }
   },
   async (i, { type }) => {
-    const count = await prisma.file.count();
+    const where = type
+      ? {
+          extension: {
+            in: extensions[type]
+          }
+        }
+      : undefined;
+    const count = await prisma.file.count({ where });
     const skip = Math.floor(Math.random() * count);
     const file = await prisma.file.findFirst({
       select: {
         name: true,
         extension: true
       },
-      where: type
-        ? {
-            extension: {
-              in: extensions[type]
-            }
-          }
-        : undefined,
+      where,
       skip
     });
     if (!file) return i.reply('No file found');
