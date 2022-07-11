@@ -1,4 +1,8 @@
+import { random } from '@limitlesspc/limitless';
+
 import command from '$services/command';
+
+const fileNames = ['explode.mp4', 'stick.png'];
 
 export default command(
   {
@@ -11,5 +15,5 @@ export default command(
       }
     }
   },
-  i => i.reply(`${process.env.FILES_ORIGIN}/memes/chicken.mp4`)
+  i => i.reply(`${process.env.FILES_ORIGIN}/chicken/${random(fileNames)}`)
 );
