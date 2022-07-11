@@ -3,12 +3,25 @@ import { MessageAttachment } from 'discord.js';
 import prisma from '$services/prisma';
 import command from '$services/command';
 
+const extensions = {
+  image: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
+  video: ['mp4', 'mov', 'mkv', 'webm'],
+  audio: ['mp3', 'wav', 'ogg']
+};
+
 export default command(
   {
     desc: 'Get a random file from files.in5net.io/discord (mostly from #general)',
-    options: {}
+    options: {
+      type: {
+        type: 'choice',
+        desc: 'Type of file to get',
+        choices: ['image', 'video', 'audio'] as const,
+        optional: true
+      }
+    }
   },
-  async i => {
+  async (i, { type }) => {
     const count = await prisma.file.count();
     const skip = Math.floor(Math.random() * count);
     const file = await prisma.file.findFirst({
@@ -16,6 +29,13 @@ export default command(
         name: true,
         extension: true
       },
+      where: type
+        ? {
+            extension: {
+              in: extensions[type]
+            }
+          }
+        : undefined,
       skip
     });
     if (!file) return i.reply('No file found');
