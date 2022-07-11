@@ -1,7 +1,7 @@
 import { load } from 'cheerio';
 import { fetch } from 'undici';
 
-import ORIGIN from './origin';
+import ORIGIN from '../origin';
 
 const query = `${ORIGIN}/works/`;
 const ao3Regex = new RegExp(`${query}(\\d+)`);
