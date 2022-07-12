@@ -6,7 +6,7 @@ export { default as catboy } from './catboy';
 export { default as chaos } from './chaos';
 export { default as chicken } from './chicken';
 export { default as counts } from './counts';
-export { default as drive } from './drive';
+export { default as dog } from './dog';
 export { default as hex } from './hex';
 export { default as hiragana } from './hiragana';
 export { default as katakana } from './katakana';
