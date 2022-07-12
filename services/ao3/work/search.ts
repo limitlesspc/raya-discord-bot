@@ -241,8 +241,6 @@ export async function searchWorks({
     url.searchParams.append(key, value.toString())
   );
 
-  console.log(url);
-
   const response = await fetch(url);
   const html = await response.text();
   const $ = load(html);
@@ -309,7 +307,7 @@ export async function searchWorks({
         $(statsEl).find('dd.words').text().replaceAll(',', '')
       );
       const chapters = $(statsEl)
-        .find('.chapters')
+        .find('dd.chapters')
         .text()
         .split('/')
         .map(x => parseInt(x)) as [number, number];

@@ -63,7 +63,8 @@ export function createWorkEmbed(
       day: '2-digit'
     })}${
       updated
-        ? `* Updated: ${updated.toLocaleString('en-US', {
+        ? `
+* Updated: ${updated.toLocaleString('en-US', {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit'

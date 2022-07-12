@@ -1,6 +1,6 @@
 import { getUser, getWork, getWorkId } from '$services/ao3';
 import command from '$services/command';
-import { createWorkEmbed } from './shared';
+import { createWorkEmbed } from './embed';
 
 export default command(
   {
@@ -13,16 +13,11 @@ export default command(
     }
   },
   async (i, { url }) => {
-    try {
-      const id = getWorkId(url);
-      const work = await getWork(id);
-      const author = await getUser(work.author);
+    const id = getWorkId(url);
+    const work = await getWork(id);
+    const author = await getUser(work.author);
 
-      const embed = createWorkEmbed(work, author);
-      return await i.reply({ embeds: [embed], ephemeral: true });
-    } catch (error) {
-      console.error(error);
-      return i.reply({ content: 'Invalid AO3 url', ephemeral: true });
-    }
+    const embed = createWorkEmbed(work, author);
+    return i.reply({ embeds: [embed], ephemeral: true });
   }
 );

@@ -17,16 +17,18 @@ export interface User {
   iconURL: string;
 }
 export async function getUser(name: string): Promise<User> {
-  const response = await fetch(`${query}${name}`);
+  name = name.split('(')[0]?.trim() || '';
+  const url = `${query}${name}`;
+  const response = await fetch(url);
   const html = await response.text();
   const $ = await load(html);
 
+  let iconURL = $('img.icon').attr('src') || '';
+  if (!iconURL.startsWith('http')) iconURL = `${ORIGIN}${iconURL}`;
+
   return {
     name,
-    url: `${query}${name}`,
-    iconURL:
-      $('#main > div.user.home > div.primary.header.module > p > a > img').attr(
-        'src'
-      ) || ''
+    url,
+    iconURL
   };
 }

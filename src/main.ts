@@ -73,7 +73,7 @@ client
 
       const { options, handler } = command;
       try {
-        return handler(
+        await handler(
           i,
           Object.fromEntries(
             Object.entries(options).map(([name, { type, default: d }]) => {
@@ -119,19 +119,20 @@ client
           .join(' ');
         console.error(`Error while running command '${name}':`, error);
         if (error instanceof Error)
-          return i.reply({
-            embeds: [
-              new MessageEmbed()
-                .setColor('RED')
-                .setTitle('Error')
-                .setDescription(error.message)
-                .setTimestamp()
-            ],
-            ephemeral: true
-          });
+          return i
+            .reply({
+              embeds: [
+                new MessageEmbed()
+                  .setColor('RED')
+                  .setTitle('Error')
+                  .setDescription(error.message)
+                  .setTimestamp()
+              ],
+              ephemeral: true
+            })
+            .catch(console.error);
       }
-    }
-    if (i.isAutocomplete()) {
+    } else if (i.isAutocomplete()) {
       const command = getCommand(i);
       if (!command) return;
 
@@ -140,12 +141,14 @@ client
       if (!handleAutocomplete) return;
 
       const options = await handleAutocomplete(option.value);
-      return i.respond(
-        options.map(o => ({
-          name: o,
-          value: o
-        }))
-      );
+      return i
+        .respond(
+          options.map(o => ({
+            name: o,
+            value: o
+          }))
+        )
+        .catch(console.error);
     }
   })
   .on('interactionError', console.error);

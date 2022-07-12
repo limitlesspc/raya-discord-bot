@@ -13,7 +13,7 @@ import {
   Warning
 } from '$services/ao3/work/search';
 import command from '$services/command';
-import { createWorkEmbed } from './shared';
+import { createWorkEmbed } from './embed';
 
 export default command(
   {
@@ -133,35 +133,32 @@ export default command(
       order
     }
   ) => {
-    try {
-      const works = await searchWorks({
-        title,
-        author,
-        complete,
-        crossovers,
-        singleChapter: single_chapter,
-        fandoms: fandom ? [fandom] : undefined,
-        rating,
-        warnings: warning ? [warning] : undefined,
-        categories: category ? [category] : undefined,
-        relationships: relationship ? [relationship] : undefined,
-        characters: character ? [character] : undefined,
-        tags: tag ? [tag] : undefined,
-        orderBy: order_by,
-        order
-      });
+    const works = await searchWorks({
+      title,
+      author,
+      complete,
+      crossovers,
+      singleChapter: single_chapter,
+      fandoms: fandom ? [fandom] : undefined,
+      rating,
+      warnings: warning ? [warning] : undefined,
+      categories: category ? [category] : undefined,
+      relationships: relationship ? [relationship] : undefined,
+      characters: character ? [character] : undefined,
+      tags: tag ? [tag] : undefined,
+      orderBy: order_by,
+      order
+    });
 
-      const embeds = await Promise.all(
-        works.map(async work => {
-          const author = await getUser(work.author);
-          return createWorkEmbed(work, author);
-        })
-      );
+    if (!works.length) return i.reply('No results found');
+    console.log(works.map(x => x.author));
 
-      return await i.reply({ embeds, ephemeral: true });
-    } catch (error) {
-      console.error(error);
-      return i.reply({ content: 'Invalid AO3 url', ephemeral: true });
-    }
+    const embeds = await Promise.all(
+      works.slice(0, 5).map(async work => {
+        const author = await getUser(work.author);
+        return createWorkEmbed(work, author);
+      })
+    );
+    return i.reply({ content: null, embeds, ephemeral: true });
   }
 );

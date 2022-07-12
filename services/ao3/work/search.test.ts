@@ -10,6 +10,6 @@ test('search work', async t => {
     relationships: ['Amity Blight/Luz Noceda'],
     orderBy: OrderBy.Kudos
   });
-  t.log(works.length);
+  t.log(works);
   t.truthy(works);
 });
