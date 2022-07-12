@@ -96,8 +96,7 @@ export default command(
       );
 
       return await i.reply({
-        embeds: [embed],
-        ephemeral: true
+        embeds: [embed]
       });
     } catch (error) {
       console.error(error);
