@@ -11,6 +11,7 @@ export interface Tag {
 
 type Response = Tag[];
 export async function searchTags(term: string) {
+  if (!term) return [];
   const url = new URL(ENDPOINT);
   url.searchParams.set('term', term);
   const response = await fetch(url);

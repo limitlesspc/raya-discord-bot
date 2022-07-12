@@ -11,6 +11,7 @@ export interface Fandom {
 
 type Response = Fandom[];
 export async function searchFandoms(term: string) {
+  if (!term) return [];
   const url = new URL(ENDPOINT);
   url.searchParams.set('term', term);
   const response = await fetch(url);

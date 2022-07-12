@@ -11,6 +11,7 @@ export interface Character {
 
 type Response = Character[];
 export async function searchCharacters(term: string) {
+  if (!term) return [];
   const url = new URL(ENDPOINT);
   url.searchParams.set('term', term);
   const response = await fetch(url);
