@@ -22,6 +22,7 @@ export { default as random } from './random';
 export { default as rng } from './rng';
 export { default as shankstorm } from './shankstorm';
 export { default as status } from './status';
+export { default as superscript } from './superscript';
 export { default as text } from './text';
 export { default as waifu } from './waifu';
 export { default as zen } from './zen';
