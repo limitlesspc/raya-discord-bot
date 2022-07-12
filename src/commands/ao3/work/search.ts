@@ -150,7 +150,8 @@ export default command(
       order
     });
 
-    if (!works.length) return i.reply('No results found');
+    if (!works.length)
+      return i.reply({ content: 'No results found', ephemeral: true });
     console.log(works.map(x => x.author));
 
     const embeds = await Promise.all(
