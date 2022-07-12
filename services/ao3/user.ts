@@ -1,5 +1,5 @@
 import { load } from 'cheerio';
-import { fetch } from 'undici';
+import fetch from 'node-fetch';
 
 import ORIGIN from './origin';
 

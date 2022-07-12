@@ -1,5 +1,5 @@
 import { MessageEmbed } from 'discord.js';
-import { fetch } from 'undici';
+import fetch from 'node-fetch';
 
 import { incCount } from '$services/users';
 import command from '$services/command';
