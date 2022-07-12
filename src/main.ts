@@ -135,11 +135,11 @@ client
       const command = getCommand(i);
       if (!command) return;
 
-      const handleAutocomplete =
-        command.options[i.options.getFocused()]?.autocomplete;
+      const option = i.options.getFocused(true);
+      const handleAutocomplete = command.options[option.name]?.autocomplete;
       if (!handleAutocomplete) return;
-      const value = i.options.getFocused();
-      const options = await handleAutocomplete(value);
+
+      const options = await handleAutocomplete(option.value);
       return i.respond(options.map(o => ({ name: o, value: o })));
     }
   })
