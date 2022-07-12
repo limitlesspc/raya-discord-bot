@@ -13,7 +13,7 @@ export default command(
     const { node, v8 } = versions;
     const embed = new MessageEmbed()
       .setTitle('Status')
-      .setColor(0x00ae86)
+      .setColor('#3AA65B')
       .addField('⬢ Node.js', node)
       .addField('V8', v8)
       .addField('Discord.js', `v${version}`)

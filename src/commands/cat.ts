@@ -24,6 +24,7 @@ export default command(
 
     const embed = new MessageEmbed()
       .setTitle('Cat')
+      .setColor('#D24515')
       .setImage(cat.url)
       .setFooter({
         text: 'Powered by The Cat API',

@@ -69,6 +69,7 @@ export default command(
       anime_name
     } = result;
     const embed = new MessageEmbed()
+      .setColor('#ff0266')
       .setImage(url)
       .setAuthor({ name: artist_name, url: artist_href })
       .setFooter({

@@ -24,6 +24,7 @@ export default command(
 
     const embed = new MessageEmbed()
       .setTitle('Catboy')
+      .setColor('#6839B6')
       .setImage(url)
       .setFooter({
         text: 'Powered by catboys.com',
