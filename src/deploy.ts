@@ -1,5 +1,5 @@
 import { REST } from '@discordjs/rest';
-import { ApplicationCommandOptionType, Routes } from 'discord-api-types/v9';
+import { ApplicationCommandOptionType, Routes } from 'discord-api-types/v10';
 
 import * as commandsData from './commands';
 import type {
@@ -73,33 +73,43 @@ function build(name: string, { desc, options }: Command) {
       ([
         name,
         { desc, type, min, max, optional, default: d, choices, autocomplete }
-      ]) => ({
-        name,
-        type: commandOptionTypeMap[type],
-        description: desc,
-        min_value: min,
-        max_value: max,
-        required: !optional && d === undefined,
-        choices:
-          type === 'choice'
-            ? Array.isArray(choices)
-              ? choices.map(choice => ({
-                  name: choice,
-                  value: choice
-                }))
-              : Object.entries(choices || {}).map(([name, description]) => ({
-                  name,
-                  description,
-                  value: name
-                }))
-            : undefined,
-        autocomplete: !!autocomplete
-      })
+      ]) => {
+        const data: any = {
+          name,
+          type: commandOptionTypeMap[type],
+          description: desc,
+          min_value: min,
+          max_value: max,
+          required: !optional && d === undefined,
+          choices:
+            type === 'choice'
+              ? Array.isArray(choices)
+                ? choices.map(choice => ({
+                    name: choice,
+                    value: choice
+                  }))
+                : Object.entries(choices || {}).map(([name, description]) => ({
+                    name,
+                    description,
+                    value: name
+                  }))
+              : undefined,
+          autocomplete: !!autocomplete
+        };
+        if (type === 'int' || type === 'float') {
+          data.min_value = min;
+          data.max_value = max;
+        } else if (type === 'string') {
+          data.min_length = min;
+          data.max_length = max;
+        }
+        return data;
+      }
     )
   };
 }
 
-const rest = new REST({ version: '9' }).setToken(
+const rest = new REST({ version: '10' }).setToken(
   process.env.DISCORD_TOKEN || ''
 );
 
