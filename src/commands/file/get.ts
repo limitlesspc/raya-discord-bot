@@ -13,17 +13,27 @@ const extensions: Record<Type, string[]> = {
 
 export default command(
   {
-    desc: 'Get a random file from files.in5net.io/discord (mostly from #general)',
+    desc: 'Get a random file from files.in5net.io/discord',
     options: {
       type: {
         type: 'choice',
         desc: 'Type of file to get',
         choices: types,
         optional: true
+      },
+      googas: {
+        type: 'bool',
+        desc: 'Googas',
+        optional: true
       }
     }
   },
-  async (i, { type }) => {
+  async (i, { type, googas }) => {
+    if (googas)
+      return i.reply(
+        `${process.env.FILES_ORIGIN}/discord/googas.mp4 ${process.env.FILES_ORIGIN}/discord/gradi.png`
+      );
+
     const file = await getRandomFile(type);
     if (!file) return i.reply('No file found');
     const { name, extension } = file;
