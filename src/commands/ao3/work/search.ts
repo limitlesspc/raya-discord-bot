@@ -19,6 +19,31 @@ export default command(
   {
     desc: 'Get information on a work from Archive of Our Own',
     options: {
+      title: {
+        type: 'string',
+        desc: 'Search by title',
+        optional: true
+      },
+      author: {
+        type: 'string',
+        desc: 'Search by author',
+        optional: true
+      },
+      complete: {
+        type: 'bool',
+        desc: 'Only show completed works',
+        optional: true
+      },
+      crossovers: {
+        type: 'bool',
+        desc: 'Allow crossovers',
+        optional: true
+      },
+      single_chapter: {
+        type: 'bool',
+        desc: 'Only show single chapter works',
+        optional: true
+      },
       fandom: {
         type: 'string',
         desc: 'Fandom name to search for',
@@ -92,6 +117,11 @@ export default command(
   async (
     i,
     {
+      title,
+      author,
+      complete,
+      crossovers,
+      single_chapter,
       fandom,
       rating,
       warning,
@@ -105,6 +135,11 @@ export default command(
   ) => {
     try {
       const works = await searchWorks({
+        title,
+        author,
+        complete,
+        crossovers,
+        singleChapter: single_chapter,
         fandoms: fandom ? [fandom] : undefined,
         rating,
         warnings: warning ? [warning] : undefined,
