@@ -14,6 +14,6 @@ export async function searchFandoms(term: string) {
   const url = new URL(ENDPOINT);
   url.searchParams.set('term', term);
   const response = await fetch(url);
-  const tags = (await response.json()) as Response;
-  return tags;
+  const fandoms = (await response.json()) as Response;
+  return fandoms;
 }

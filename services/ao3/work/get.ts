@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 
 import ORIGIN from '../origin';
 
-const query = `${ORIGIN}/works/`;
+export const query = `${ORIGIN}/works/`;
 const ao3Regex = new RegExp(`${query}(\\d+)`);
 
 export function getWorkId(url: string): string {
@@ -20,6 +20,7 @@ export const ratings = {
 export type Rating = keyof typeof ratings;
 
 export const contentWarnings = {
+  choosenot: 'Creator Chose Not To Use Archive Warnings',
   violence: 'Graphic Depictions of Violence',
   death: 'Major Character Death',
   rape: 'Rape/Non-Con',
@@ -27,7 +28,7 @@ export const contentWarnings = {
 };
 export type Warning = keyof typeof contentWarnings;
 
-export const relationshipOrientations = {
+export const categories = {
   lesbian: 'F/F',
   straight: 'F/M',
   gen: 'Gen',
@@ -35,7 +36,7 @@ export const relationshipOrientations = {
   multi: 'Multi',
   other: 'Other'
 };
-export type RelationshipOrientation = keyof typeof relationshipOrientations;
+export type Category = keyof typeof categories;
 
 export const symbolsOrigin =
   'https://archiveofourown.org/images/skins/iconsets/default/';
@@ -47,7 +48,7 @@ export const symbols = {
     explicit: 'rating-explicit',
     none: 'rating-notrated'
   },
-  orientation: {
+  category: {
     lesbian: 'category-femslash',
     straight: 'category-het',
     gen: 'category-gen',
@@ -57,7 +58,7 @@ export const symbols = {
     none: 'category-none'
   },
   warning: {
-    undefined: 'warning-choosenotto',
+    choosenot: 'warning-choosenotto',
     yes: 'warning-yes',
     no: 'warning-no',
     external: 'warning-external-work'
@@ -73,12 +74,11 @@ type ObjectValues<T> = T[keyof T];
 
 export interface Work {
   id: string;
-  url: string;
   title: string;
   author: string;
   rating?: Rating;
-  warnings?: Warning[];
-  categories: RelationshipOrientation[];
+  warnings: Warning[];
+  categories: Category[];
   fandoms: string[];
   relationships: string[];
   characters: string[];
@@ -99,7 +99,7 @@ export interface Work {
   };
   symbols: {
     rating: ObjectValues<typeof symbols.rating>;
-    orientation: ObjectValues<typeof symbols.orientation>;
+    category: ObjectValues<typeof symbols.category>;
     warning: ObjectValues<typeof symbols.warning>;
     complete: ObjectValues<typeof symbols.complete>;
   };
@@ -126,7 +126,6 @@ export async function getWork(id: string): Promise<Work> {
 
   const work = {
     id,
-    url: `${query}${id}`,
     title: $('h2.title').text(),
     author: $('#workskin > div.preface.group > h3 > a').text(),
     rating: Object.entries(ratings).find(([, x]) => rating === x)?.[0] as
@@ -135,8 +134,6 @@ export async function getWork(id: string): Promise<Work> {
     warnings:
       warnings[0] === 'No Archive Warnings Apply'
         ? []
-        : warnings[0] === 'Creator Chose Not To Use Archive Warnings'
-        ? undefined
         : (warnings.map(
             warning =>
               Object.entries(contentWarnings).find(
@@ -145,15 +142,14 @@ export async function getWork(id: string): Promise<Work> {
           ) as Warning[]),
     categories: categories.map(
       category =>
-        Object.entries(relationshipOrientations).find(
-          ([, x]) => category === x
-        )?.[0] || 'other'
-    ) as RelationshipOrientation[],
+        Object.entries(categories).find(([, x]) => category === x)?.[0] ||
+        'other'
+    ) as Category[],
     fandoms: $('#main > div.wrapper > dl > dd.fandom.tags > ul > li > a')
       .map((_, el) => $(el).text())
       .get(),
     relationships: $('#main > div.wrapper > dl > dd.relationship.tags > ul a')
-      .map((_, el) => $(el).text() as RelationshipOrientation)
+      .map((_, el) => $(el).text() as Category)
       .get(),
     characters: $('#main > div.wrapper > dl > dd.character.tags > ul a')
       .map((_, el) => $(el).text())
@@ -186,13 +182,13 @@ export async function getWork(id: string): Promise<Work> {
     ...work,
     symbols: {
       rating: symbols.rating[work.rating || 'none'],
-      orientation:
+      category:
         work.categories.length > 1
-          ? symbols.orientation.multi
-          : symbols.orientation[work.categories[0] || 'none'],
+          ? symbols.category.multi
+          : symbols.category[work.categories[0] || 'none'],
       warning:
         symbols.warning[
-          work.warnings ? (work.warnings.length ? 'yes' : 'no') : 'undefined'
+          work.warnings ? (work.warnings.length ? 'yes' : 'no') : 'choosenot'
         ],
       complete:
         symbols.complete[

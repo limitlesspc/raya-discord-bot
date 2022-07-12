@@ -14,7 +14,7 @@ type Type = keyof CommandOptionType;
 type Choices = readonly string[] | Record<string, string>;
 type ValueFromChoices<T extends Choices> = T extends readonly string[]
   ? T[number]
-  : keyof T;
+  : T[keyof T];
 
 export type AutocompleteHandler = (option: string) => Promise<string[]>;
 interface Option<T extends Type = Type, C extends Choices = Choices> {

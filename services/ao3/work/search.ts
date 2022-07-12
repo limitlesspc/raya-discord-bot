@@ -1,11 +1,26 @@
+import { load } from 'cheerio';
 import fetch from 'node-fetch';
 
 import ORIGIN from '../origin';
+import {
+  contentWarnings,
+  symbols,
+  Warning as IWarning,
+  Work as IWork
+} from './get';
+import { objectKeys } from '$services/object';
 import type languages from './languages.json';
+
+interface Work extends IWork {
+  summary: string;
+  stats: IWork['stats'] & {
+    comments: number;
+  };
+}
 
 const ENDPOINT = `${ORIGIN}/works/search`;
 
-enum Rating {
+export enum Rating {
   General = '10', // General Audiences
   Teen = '11', // Teen And Up Audiences
   None = '9', // Not Rated
@@ -13,7 +28,7 @@ enum Rating {
   Explicit = '13' // Explicit
 }
 
-enum Warning {
+export enum Warning {
   None = '16', // No Archive Warnings Apply
   ChooseNot = '14', // Creator Chose Not To Use Archive Warnings
   Violence = '17', // Graphic Depictions Of Violence
@@ -22,7 +37,7 @@ enum Warning {
   Rape = '19' // Rape/Non-Con
 }
 
-enum Category {
+export enum Category {
   General = '21', // Gen
   Straight = '22', // F/M
   Lesbian = '116', // F/F
@@ -31,7 +46,7 @@ enum Category {
   Multi = '2246' // Multi
 }
 
-enum OrderBy {
+export enum OrderBy {
   BestMatch = '_score', // Best Match
   Author = 'authors_to_sort_on', // Author
   Title = 'title_to_sort_on', // Title
@@ -54,6 +69,7 @@ interface Options {
   singleChapter?: boolean;
   words?: number | string;
   language?: keyof typeof languages;
+  fandoms?: string[];
   rating?: Rating;
   warnings?: Warning[];
   categories?: Category[];
@@ -155,6 +171,7 @@ export async function searchWorks({
   singleChapter,
   words,
   language,
+  fandoms,
   rating,
   warnings,
   categories,
@@ -168,7 +185,7 @@ export async function searchWorks({
   orderBy,
   order,
   page
-}: Options) {
+}: Options): Promise<Work[]> {
   const url = new URL(ENDPOINT);
   const searchParams: (readonly [
     key: keyof SearchParams,
@@ -190,6 +207,7 @@ export async function searchWorks({
     ]);
   if (words) searchParams.push(['work_search[word_count]', words.toString()]);
   if (language) searchParams.push(['work_search[language_id]', language]);
+  if (fandoms) searchParams.push(['work_search[fandom_names]', fandoms]);
   if (rating) searchParams.push(['include_work_search[rating_ids]', rating]);
   if (warnings)
     searchParams.push(
@@ -223,6 +241,125 @@ export async function searchWorks({
     url.searchParams.append(key, value.toString())
   );
 
+  console.log(url);
+
   const response = await fetch(url);
-  return response;
+  const html = await response.text();
+  const $ = load(html);
+
+  return $('li.work')
+    .map((_, work) => {
+      const [titleEl, authorEl] = $(work).find('h4 a').get();
+      const $titleEl = $(titleEl);
+      const id = $titleEl.attr('href')?.split('/').pop() || '';
+      const title = $titleEl.text();
+      const author = $(authorEl).text();
+
+      const fandoms = $(work)
+        .find('h5 a')
+        .map((_, el) => $(el).text())
+        .get();
+
+      const symbolsEl = $(work).find('.required-tags');
+      const ratingEl = $(symbolsEl).find('.rating');
+      const rating =
+        objectKeys(symbols.rating).find(rating =>
+          ratingEl.hasClass(symbols.rating[rating])
+        ) || 'none';
+      const categoryEl = $(symbolsEl).find('.category');
+      const category =
+        objectKeys(symbols.category).find(category =>
+          categoryEl.hasClass(symbols.category[category])
+        ) || 'none';
+      const warningsEl = $(symbolsEl).find('.warnings');
+      const warning =
+        objectKeys(symbols.warning).find(warning =>
+          warningsEl.hasClass(symbols.warning[warning])
+        ) || 'choosenot';
+      const completeEl = $(symbolsEl).find('.iswip');
+      const complete =
+        objectKeys(symbols.complete).find(complete =>
+          completeEl.hasClass(symbols.complete[complete])
+        ) || 'unknown';
+
+      const tagsEl = $(work).find('.tags');
+      const warnings = $(tagsEl)
+        .find('.warnings')
+        .map((_, el) => $(el).text())
+        .get();
+      const relationships = $(tagsEl)
+        .find('.relationships')
+        .map((_, el) => $(el).text())
+        .get();
+      const characters = $(tagsEl)
+        .find('.characters')
+        .map((_, el) => $(el).text())
+        .get();
+      const tags = $(tagsEl)
+        .find('.freeforms')
+        .map((_, el) => $(el).text())
+        .get();
+
+      const summary = $(work).find('.summary').text().trim();
+
+      const statsEl = $(work).find('.stats');
+      const datetime = new Date($(work).find('.datetime').text());
+      const language = $(statsEl).find('dd.language').text();
+      const words = parseInt(
+        $(statsEl).find('dd.words').text().replaceAll(',', '')
+      );
+      const chapters = $(statsEl)
+        .find('.chapters')
+        .text()
+        .split('/')
+        .map(x => parseInt(x)) as [number, number];
+      const comments = parseInt(
+        $(statsEl).find('dd.comments').text().replaceAll(',', '')
+      );
+      const kudos = parseInt(
+        $(statsEl).find('dd.kudos').text().replaceAll(',', '')
+      );
+      const bookmarks = parseInt(
+        $(statsEl).find('dd.bookmarks').text().replaceAll(',', '')
+      );
+      const hits = parseInt(
+        $(statsEl).find('dd.hits').text().replaceAll(',', '')
+      );
+
+      const data: Work = {
+        id,
+        title,
+        author,
+        warnings:
+          warnings[0] === 'No Archive Warnings Apply'
+            ? []
+            : (warnings.map(
+                warning =>
+                  Object.entries(contentWarnings).find(
+                    ([, x]) => warning === x
+                  )?.[0]
+              ) as IWarning[]),
+        categories: category !== 'none' ? [category] : [],
+        fandoms,
+        relationships,
+        characters,
+        tags,
+        summary,
+        language,
+        stats: {
+          published: datetime,
+          updated: datetime,
+          words,
+          chapters,
+          comments,
+          kudos,
+          bookmarks,
+          hits
+        },
+        symbols: { rating, category, warning, complete }
+      };
+      if (rating !== 'none') data.rating = rating;
+      return data;
+    })
+    .get();
 }

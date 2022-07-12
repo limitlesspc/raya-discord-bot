@@ -10,10 +10,10 @@ export interface Relationship {
 }
 
 type Response = Relationship[];
-export async function searchTags(term: string) {
+export async function searchRelationships(term: string) {
   const url = new URL(ENDPOINT);
   url.searchParams.set('term', term);
   const response = await fetch(url);
-  const tags = (await response.json()) as Response;
-  return tags;
+  const relationships = (await response.json()) as Response;
+  return relationships;
 }

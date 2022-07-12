@@ -1,15 +1,16 @@
-import 'https://deno.land/std@0.147.0/dotenv/load';
+import test from 'ava';
 
+import '../../src/env';
 import { getVideo, searchVideos } from './video';
 
-Deno.test('get video', async () => {
+test('get video', async t => {
   const url = 'https://youtu.be/ZjOUc7rKtPQ';
   const video = await getVideo(url);
-  console.log(video);
+  t.truthy(video);
 });
 
-Deno.test('search video', async () => {
+test('search video', async t => {
   const query = 'peternity';
   const videos = await searchVideos(query);
-  console.log(videos);
+  t.truthy(videos);
 });
