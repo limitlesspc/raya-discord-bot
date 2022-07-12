@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 
 import ORIGIN from './origin';
 
-const ENDPOINT = `${ORIGIN}/fandom/tag`;
+const ENDPOINT = `${ORIGIN}/autocomplete/fandom`;
 
 export interface Fandom {
   id: string;
