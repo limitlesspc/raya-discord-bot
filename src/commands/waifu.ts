@@ -30,10 +30,15 @@ export default command(
   async (i, { option }) => {
     if (
       option === 'nsfw' &&
-      i.channel?.type === 'GUILD_TEXT' &&
+      (i.channel?.type === 'GUILD_TEXT' ||
+        i.channel?.type === 'GUILD_NEWS' ||
+        i.channel?.type === 'GUILD_VOICE') &&
       !i.channel.nsfw
     )
-      return i.reply("This isn't a nsfw channel you cheeky boi");
+      return i.reply({
+        content: "This isn't a nsfw channel you cheeky boi",
+        ephemeral: true
+      });
 
     const { data } = await getRandom({
       gif: option === 'gif',
