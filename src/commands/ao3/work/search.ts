@@ -52,7 +52,9 @@ export default command(
         optional: true,
         async autocomplete(query) {
           const relationships = await searchRelationships(query);
-          return relationships.map(({ id }) => id);
+          return relationships
+            .map(({ id }) => id)
+            .filter(id => id.length <= 100);
         }
       },
       character: {
@@ -61,7 +63,7 @@ export default command(
         optional: true,
         async autocomplete(query) {
           const characters = await searchCharacters(query);
-          return characters.map(({ id }) => id);
+          return characters.map(({ id }) => id).filter(id => id.length <= 100);
         }
       },
       tag: {
@@ -70,7 +72,7 @@ export default command(
         optional: true,
         async autocomplete(query) {
           const tags = await searchTags(query);
-          return tags.map(({ id }) => id);
+          return tags.map(({ id }) => id).filter(id => id.length <= 100);
         }
       },
       order_by: {
