@@ -5,9 +5,5 @@ export default command(
     desc: 'Ping!',
     options: {}
   },
-  async i =>
-    i.reply({
-      content: `Pong! ${Date.now() - i.createdTimestamp} ms`,
-      ephemeral: true
-    })
+  async i => i.reply(`Pong! ${Date.now() - i.createdTimestamp} ms`)
 );

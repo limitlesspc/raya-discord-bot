@@ -28,7 +28,11 @@ export default command(
     }
   },
   async (i, { option }) => {
-    if (option === 'nsfw' && i.channel?.type === 'GUILD_TEXT' && i.channel.nsfw)
+    if (
+      option === 'nsfw' &&
+      i.channel?.type === 'GUILD_TEXT' &&
+      !i.channel.nsfw
+    )
       return i.reply("This isn't a nsfw channel you cheeky boi");
 
     const { data } = await getRandom({
@@ -56,7 +60,7 @@ export default command(
         url: image.source
       });
 
-    await i.reply({ embeds: [embed], ephemeral: true });
+    await i.reply({ embeds: [embed] });
     return incCount(i.user.id, 'weeb');
   }
 );
