@@ -1,9 +1,7 @@
-import { random } from '@limitlesspc/limitless';
-
 import command from '$services/command';
+import prisma from '$services/prisma';
 
 const stickenFileName = 'stick.png';
-const fileNames = [stickenFileName, 'explode.mp4', 'ballin.mp4'];
 
 export default command(
   {
@@ -16,5 +14,15 @@ export default command(
       }
     }
   },
-  i => i.reply(`${process.env.FILES_ORIGIN}/chicken/${random(fileNames)}`)
+  async (i, { sticken }) => {
+    let fileName: string;
+    if (sticken) fileName = stickenFileName;
+    else {
+      const count = await prisma.chicken.count();
+      const skip = Math.floor(Math.random() * count);
+      const chicken = await prisma.chicken.findFirstOrThrow({ skip });
+      fileName = chicken.fileName;
+    }
+    return i.reply(`${process.env.FILES_ORIGIN}/chicken/${fileName}`);
+  }
 );

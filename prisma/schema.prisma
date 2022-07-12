@@ -62,3 +62,11 @@ model Y7GIF {
   height   Int    @db.Int2
   frames   Int    @db.Int2
 }
+
+model Chicken {
+  fileName String @id
+}
+
+model SpeechBubble {
+  fileName String @id
+}
