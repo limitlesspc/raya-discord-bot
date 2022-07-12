@@ -6,13 +6,16 @@ const { NAME, DISCORD_TOKEN } = process.env;
 console.log(`⏳ ${NAME} is starting...`);
 console.time(NAME);
 
+const MESSAGE_CONTENT = 1 << 15;
+
 const client = new Client({
   intents: [
     'GUILDS',
     'GUILD_MESSAGES',
     'GUILD_MESSAGE_REACTIONS',
     'GUILD_MEMBERS',
-    'DIRECT_MESSAGES'
+    'DIRECT_MESSAGES',
+    MESSAGE_CONTENT
   ],
   makeCache: Options.cacheWithLimits({
     ApplicationCommandManager: 0,
