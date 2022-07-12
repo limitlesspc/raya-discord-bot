@@ -11,10 +11,22 @@ export default command(
         desc: 'Type of file to get',
         choices: types,
         optional: true
+      },
+      googas: {
+        type: 'bool',
+        desc: 'googas + gradi',
+        optional: true
       }
     }
   },
-  async (i, { type }) => {
+  async (i, { type, googas }) => {
+    if (googas)
+      return i.reply(
+        ['googas.mp4', 'gradi.png']
+          .map(fileName => `${process.env.FILES_ORIGIN}/discord/${fileName}`)
+          .join(' ')
+      );
+
     const file = await getRandomFile(type);
     if (!file) return i.reply('No file found');
     const { name, extension } = file;
