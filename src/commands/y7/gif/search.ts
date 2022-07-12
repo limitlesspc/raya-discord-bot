@@ -1,5 +1,6 @@
 import prisma from '$services/prisma';
 import command from '$services/command';
+import { NSFW_FILE_NAME } from './shared';
 
 export default command(
   {
@@ -16,7 +17,8 @@ export default command(
             where: {
               fileName: {
                 contains: query,
-                mode: 'insensitive'
+                mode: 'insensitive',
+                not: NSFW_FILE_NAME
               }
             },
             orderBy: {

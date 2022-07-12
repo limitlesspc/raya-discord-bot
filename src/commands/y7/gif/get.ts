@@ -1,5 +1,6 @@
 import prisma from '$services/prisma';
 import command from '$services/command';
+import { NSFW_FILE_NAME } from './shared';
 
 export default command(
   {
@@ -7,12 +8,18 @@ export default command(
     options: {}
   },
   async i => {
-    const count = await prisma.y7GIF.count();
+    const where = {
+      fileName: {
+        not: NSFW_FILE_NAME
+      }
+    };
+    const count = await prisma.y7GIF.count({ where });
     const skip = Math.floor(Math.random() * count);
     const gif = await prisma.y7GIF.findFirst({
       select: {
         fileName: true
       },
+      where,
       skip
     });
     if (!gif) return i.reply('No image found');
