@@ -24,7 +24,9 @@ export default command(
             },
             take: 5
           });
-          return gifs.map(({ fileName }) => fileName);
+          return gifs
+            .map(({ fileName }) => fileName)
+            .filter(fileName => fileName.length <= 100);
         }
       }
     }

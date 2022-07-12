@@ -25,7 +25,9 @@ export default command(
             },
             take: 5
           });
-          return files?.map(({ name, extension }) => `${name}.${extension}`);
+          return files
+            ?.map(({ name, extension }) => `${name}.${extension}`)
+            .filter(fileName => fileName.length <= 100);
         }
       }
     }

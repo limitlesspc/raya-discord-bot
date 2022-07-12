@@ -24,7 +24,9 @@ export default command(
             },
             take: 5
           });
-          return images.map(({ fileName }) => fileName);
+          return images
+            .map(({ fileName }) => fileName)
+            .filter(fileName => fileName.length <= 100);
         }
       }
     }

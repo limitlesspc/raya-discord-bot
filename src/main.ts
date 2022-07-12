@@ -140,7 +140,12 @@ client
       if (!handleAutocomplete) return;
 
       const options = await handleAutocomplete(option.value);
-      return i.respond(options.map(o => ({ name: o, value: o })));
+      return i.respond(
+        options.map(o => ({
+          name: o,
+          value: o
+        }))
+      );
     }
   })
   .on('interactionError', console.error);
