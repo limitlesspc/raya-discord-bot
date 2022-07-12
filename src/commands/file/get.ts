@@ -1,5 +1,3 @@
-import { MessageAttachment } from 'discord.js';
-
 import prisma from '$services/prisma';
 import command from '$services/command';
 import { extensions, sendFile, Type, types } from './shared';
@@ -13,27 +11,10 @@ export default command(
         desc: 'Type of file to get',
         choices: types,
         optional: true
-      },
-      googas: {
-        type: 'bool',
-        desc: 'Googas',
-        optional: true
       }
     }
   },
-  async (i, { type, googas }) => {
-    if (googas)
-      return i.reply({
-        content: null,
-        files: ['googas.mp4', 'gradi.png'].map(
-          fileName =>
-            new MessageAttachment(
-              `${process.env.FILES_ORIGIN}/discord/${fileName}`,
-              fileName
-            )
-        )
-      });
-
+  async (i, { type }) => {
     const file = await getRandomFile(type);
     if (!file) return i.reply('No file found');
     const { name, extension } = file;
