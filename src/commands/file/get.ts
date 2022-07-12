@@ -1,15 +1,6 @@
-import { MessageAttachment } from 'discord.js';
-
 import prisma from '$services/prisma';
 import command from '$services/command';
-
-const types = ['image', 'video', 'audio'] as const;
-type Type = typeof types[number];
-const extensions: Record<Type, string[]> = {
-  image: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
-  video: ['mp4', 'mov', 'mkv', 'webm'],
-  audio: ['mp3', 'wav', 'ogg']
-};
+import { extensions, sendFile, Type, types } from './shared';
 
 export default command(
   {
@@ -39,13 +30,7 @@ export default command(
     const { name, extension } = file;
 
     const fileName = `${name}.${extension}`;
-    const url = `${process.env.FILES_ORIGIN}/discord/${fileName}`;
-    if (['mp3', 'wav', 'ogg'].includes(extension))
-      return i.reply({
-        content: null,
-        files: [new MessageAttachment(url, fileName)]
-      });
-    return i.reply(url);
+    return sendFile(i, fileName);
   }
 );
 

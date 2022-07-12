@@ -1,5 +1,6 @@
 import prisma from '$services/prisma';
 import command from '$services/command';
+import { sendFile } from './shared';
 
 export default command(
   {
@@ -32,8 +33,5 @@ export default command(
       }
     }
   },
-  (i, { file_name }) => {
-    const url = `${process.env.FILES_ORIGIN}/discord/${file_name}`;
-    return i.reply(url);
-  }
+  (i, { file_name }) => sendFile(i, file_name)
 );
