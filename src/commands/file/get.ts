@@ -23,16 +23,14 @@ export default command(
     if (googas)
       return i.reply(
         ['googas.mp4', 'gradi.png']
-          .map(fileName => `${process.env.FILES_ORIGIN}/discord/${fileName}`)
+          .map(name => `${process.env.FILES_ORIGIN}/discord/${name}`)
           .join(' ')
       );
 
     const file = await getRandomFile(type);
     if (!file) return i.reply('No file found');
-    const { name, extension } = file;
 
-    const fileName = `${name}.${extension}`;
-    return sendFile(i, fileName);
+    return sendFile(i, file.name);
   }
 );
 
@@ -48,8 +46,7 @@ export async function getRandomFile(type?: Type) {
   const skip = Math.floor(Math.random() * count);
   const file = await prisma.file.findFirst({
     select: {
-      name: true,
-      extension: true
+      name: true
     },
     where,
     skip

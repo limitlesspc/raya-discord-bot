@@ -9,23 +9,24 @@ export default command(
         type: 'string',
         desc: 'The file name to search for',
         autocomplete: async search => {
-          const images = await prisma.y7Image.findMany({
+          const images = await prisma.y7File.findMany({
             select: {
-              fileName: true
+              name: true
             },
             where: {
-              fileName: {
+              name: {
                 search
+              },
+              extension: {
+                not: 'gif'
               }
             },
             orderBy: {
-              fileName: 'asc'
+              name: 'asc'
             },
             take: 5
           });
-          return images
-            .map(({ fileName }) => fileName)
-            .filter(fileName => fileName.length <= 100);
+          return images.map(({ name }) => name);
         }
       }
     }

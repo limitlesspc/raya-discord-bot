@@ -12,8 +12,7 @@ export default command(
         autocomplete: async search => {
           const files = await prisma.file.findMany({
             select: {
-              name: true,
-              extension: true
+              name: true
             },
             where: {
               name: {
@@ -25,9 +24,7 @@ export default command(
             },
             take: 5
           });
-          return files
-            ?.map(({ name, extension }) => `${name}.${extension}`)
-            .filter(fileName => fileName.length <= 100);
+          return files.map(({ name }) => name);
         }
       }
     }

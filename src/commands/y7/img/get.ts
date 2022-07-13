@@ -7,17 +7,23 @@ export default command(
     options: {}
   },
   async i => {
-    const count = await prisma.y7Image.count();
+    const where = {
+      extension: {
+        not: 'gif'
+      }
+    };
+    const count = await prisma.y7File.count({ where });
     const skip = Math.floor(Math.random() * count);
-    const image = await prisma.y7Image.findFirst({
+    const image = await prisma.y7File.findFirst({
       select: {
-        fileName: true
+        name: true
       },
+      where,
       skip
     });
     if (!image) return i.reply('No image found');
 
-    const url = `${process.env.FILES_ORIGIN}/y7/images/${image.fileName}`;
+    const url = `${process.env.FILES_ORIGIN}/y7/images/${image.name}`;
     return i.reply(url);
   }
 );

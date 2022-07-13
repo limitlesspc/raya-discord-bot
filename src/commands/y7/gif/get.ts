@@ -9,22 +9,23 @@ export default command(
   },
   async i => {
     const where = {
-      fileName: {
+      name: {
         not: NSFW_FILE_NAME
-      }
+      },
+      extension: 'gif'
     };
-    const count = await prisma.y7GIF.count({ where });
+    const count = await prisma.y7File.count({ where });
     const skip = Math.floor(Math.random() * count);
-    const gif = await prisma.y7GIF.findFirst({
+    const gif = await prisma.y7File.findFirst({
       select: {
-        fileName: true
+        name: true
       },
       where,
       skip
     });
     if (!gif) return i.reply('No image found');
 
-    const url = `${process.env.FILES_ORIGIN}/y7/images/${gif.fileName}`;
+    const url = `${process.env.FILES_ORIGIN}/y7/images/${gif.name}`;
     return i.reply(url);
   }
 );
