@@ -15,14 +15,14 @@ export default command(
     }
   },
   async (i, { sticken }) => {
-    let fileName: string;
-    if (sticken) fileName = stickenFileName;
+    let name: string;
+    if (sticken) name = stickenFileName;
     else {
       const count = await prisma.chicken.count();
       const skip = Math.floor(Math.random() * count);
       const chicken = await prisma.chicken.findFirstOrThrow({ skip });
-      fileName = chicken.fileName;
+      name = chicken.name;
     }
-    return i.reply(`${process.env.FILES_ORIGIN}/chicken/${fileName}`);
+    return i.reply(`${process.env.FILES_ORIGIN}/chicken/${name}`);
   }
 );

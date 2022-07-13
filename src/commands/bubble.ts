@@ -9,7 +9,7 @@ export default command(
   async i => {
     const count = await prisma.speechBubble.count();
     const skip = Math.floor(Math.random() * count);
-    const { fileName } = await prisma.speechBubble.findFirstOrThrow({ skip });
-    return i.reply(`${process.env.FILES_ORIGIN}/speech-bubbles/${fileName}`);
+    const { name } = await prisma.speechBubble.findFirstOrThrow({ skip });
+    return i.reply(`${process.env.FILES_ORIGIN}/speech-bubbles/${name}`);
   }
 );
