@@ -39,7 +39,6 @@ model File {
 
   name      String
   extension String
-  size      Int
 
   @@unique([name, extension])
 }
