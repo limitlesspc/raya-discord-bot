@@ -9,7 +9,7 @@ export default command(
       file_name: {
         type: 'string',
         desc: 'The file name to search for',
-        autocomplete: async query => {
+        autocomplete: async search => {
           const files = await prisma.file.findMany({
             select: {
               name: true,
@@ -17,8 +17,7 @@ export default command(
             },
             where: {
               name: {
-                contains: query,
-                mode: 'insensitive'
+                search
               }
             },
             orderBy: {

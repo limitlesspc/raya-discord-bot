@@ -1,10 +1,12 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity", "fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
-  provider = "cockroachdb"
-  url      = env("DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
 }
 
 model User {
@@ -38,9 +40,10 @@ model File {
   id String @id @default(cuid())
 
   name      String
-  extension String
+  extension String @db.VarChar(4)
 
   @@unique([name, extension])
+  @@fulltext([name])
 }
 
 model Y7Image {
@@ -48,18 +51,22 @@ model Y7Image {
 
   fileName String @unique
   size     Int
-  width    Int    @db.Int2
-  height   Int    @db.Int2
+  width    Int    @db.UnsignedSmallInt
+  height   Int    @db.UnsignedSmallInt
+
+  @@fulltext([fileName])
 }
 
 model Y7GIF {
   id String @id @default(cuid())
 
   fileName String @unique
-  size     Int
-  width    Int    @db.Int2
-  height   Int    @db.Int2
-  frames   Int    @db.Int2
+  size     Int    @db.UnsignedInt
+  width    Int    @db.UnsignedSmallInt
+  height   Int    @db.UnsignedSmallInt
+  frames   Int    @db.UnsignedSmallInt
+
+  @@fulltext([fileName])
 }
 
 model Chicken {

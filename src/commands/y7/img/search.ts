@@ -8,15 +8,14 @@ export default command(
       file_name: {
         type: 'string',
         desc: 'The file name to search for',
-        autocomplete: async query => {
+        autocomplete: async search => {
           const images = await prisma.y7Image.findMany({
             select: {
               fileName: true
             },
             where: {
               fileName: {
-                contains: query,
-                mode: 'insensitive'
+                search
               }
             },
             orderBy: {
