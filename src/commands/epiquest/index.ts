@@ -39,7 +39,7 @@ export default command(
       if (inventory.length) embed.addField('Inventory', inventory.join('\n'));
 
       const row = new MessageActionRow().addComponents(
-        new MessageSelectMenu().addOptions(
+        new MessageSelectMenu().setCustomId(`select_${i.user.id}`).addOptions(
           ...answers.map(({ text, emoji }) => ({
             emoji,
             label: strReplace(typeof text === 'string' ? text : text()),
@@ -53,48 +53,49 @@ export default command(
         filter: int => int.user.id === i.user.id,
         time: 60_000
       });
+      if (!int) return i.followUp('Epiquest ran out of time ⏱');
 
-      if (int?.customId) {
-        const answer =
-          answers.find(answer => answer.emoji === int.customId) || answers[0];
-        if (answer) {
-          const { text, response, effect, end } = answer;
-          console.log(`${int.customId} - ${text}`);
-          if (end) return i.followUp('Epiquest is over!');
+      await int.update({});
 
-          switch (effect) {
-            case 'good':
-              good++;
-              break;
-            case 'bad':
-              bad++;
-          }
-          if (response) {
-            let text: string;
-            if (typeof response === 'string') text = response;
+      const answer =
+        answers.find(answer => answer.emoji === int.customId) || answers[0];
+      if (answer) {
+        const { text, response, effect, end } = answer;
+        console.log(`${int.customId} - ${text}`);
+        if (end) return i.followUp('Epiquest is over!');
+
+        switch (effect) {
+          case 'good':
+            good++;
+            break;
+          case 'bad':
+            bad++;
+        }
+        if (response) {
+          let text: string;
+          if (typeof response === 'string') text = response;
+          else {
+            const result = response(inventory, item);
+            if (typeof result === 'string') text = result;
             else {
-              const result = response(inventory, item);
-              if (typeof result === 'string') text = result;
-              else {
-                text = result.text;
-                switch (result.effect) {
-                  case 'good':
-                    good++;
-                    break;
-                  case 'bad':
-                    bad++;
-                }
+              text = result.text;
+              switch (result.effect) {
+                case 'good':
+                  good++;
+                  break;
+                case 'bad':
+                  bad++;
               }
             }
-            let res = strReplace(text);
-            if (res.includes('{random}')) {
-              const text = await getText();
-              const word = text.split(' ')[0] || '';
-              res = res.replaceAll('{random}', word);
-            }
-            await i.followUp(`**> ${res}**`);
-            console.log(`Effect: +${good} -${bad}`);
           }
+          let res = strReplace(text);
+          if (res.includes('{random}')) {
+            const text = await getText();
+            const word = text.split(' ')[0] || '';
+            res = res.replaceAll('{random}', word);
+          }
+          await i.followUp(`**> ${res}**`);
+          console.log(`Effect: +${good} -${bad}`);
         }
       }
     }
@@ -116,7 +117,7 @@ export default command(
       if (inventory.length) embed.addField('Inventory', inventory.join('\n'));
 
       const row = new MessageActionRow().addComponents(
-        new MessageSelectMenu().addOptions(
+        new MessageSelectMenu().setCustomId(`select_${i.user.id}`).addOptions(
           ...choices.map(({ text, emoji }) => ({
             emoji,
             label: strReplace(text),
@@ -130,69 +131,70 @@ export default command(
         filter: int => int.user.id === i.user.id,
         time: 60_000
       });
+      if (!int) return i.followUp('Epiquest ran out of time ⏱');
 
-      if (int?.customId) {
-        const choice =
-          choices.find(choice => choice.emoji === int.customId) || choices[0];
-        if (choice) {
-          const { text, emoji, response, effect } = choice;
-          console.log(`${int.customId} - ${text}`);
+      await int.update({});
 
-          let times = timesMap.get(currentPart);
-          if (!times) {
-            times = {};
-            timesMap.set(currentPart, times);
-          }
-          const t = times[emoji] || 0;
-          times[emoji] = t + 1;
+      const choice =
+        choices.find(choice => choice.emoji === int.customId) || choices[0];
+      if (choice) {
+        const { text, emoji, response, effect } = choice;
+        console.log(`${int.customId} - ${text}`);
 
-          switch (effect) {
-            case 'good':
-              good++;
-              break;
-            case 'bad':
-              bad++;
-              break;
-            case 'wrong':
-              wrong++;
-              if (wrong >= 3) bad++;
-          }
+        let times = timesMap.get(currentPart);
+        if (!times) {
+          times = {};
+          timesMap.set(currentPart, times);
+        }
+        const t = times[emoji] || 0;
+        times[emoji] = t + 1;
 
-          if (response) {
-            let text: string;
-            if (typeof response === 'string') text = response;
+        switch (effect) {
+          case 'good':
+            good++;
+            break;
+          case 'bad':
+            bad++;
+            break;
+          case 'wrong':
+            wrong++;
+            if (wrong >= 3) bad++;
+        }
+
+        if (response) {
+          let text: string;
+          if (typeof response === 'string') text = response;
+          else {
+            const result = response(t, wrong >= 3);
+            if (typeof result === 'string') text = result;
             else {
-              const result = response(t, wrong >= 3);
-              if (typeof result === 'string') text = result;
-              else {
-                text = result.text;
-                switch (result.effect) {
-                  case 'good':
-                    good++;
-                    break;
-                  case 'bad':
-                    bad++;
-                    break;
-                  case 'wrong':
-                    wrong++;
-                    if (wrong >= 3) bad++;
-                }
+              text = result.text;
+              switch (result.effect) {
+                case 'good':
+                  good++;
+                  break;
+                case 'bad':
+                  bad++;
+                  break;
+                case 'wrong':
+                  wrong++;
+                  if (wrong >= 3) bad++;
               }
             }
-            let res = strReplace(text);
-            if (res.includes('{random}')) {
-              const text = await getText();
-              const word = text.split(' ')[0] || '';
-              res = res.replaceAll('{random}', word);
-            }
-            await i.followUp(`**> ${res}**`);
-            console.log(`Effect: +${good} -${bad}`);
           }
-
-          const nextPart = choice.next?.(t);
-          if (nextPart) currentPart = nextPart;
-          else break;
+          let res = strReplace(text);
+          if (res.includes('{random}')) {
+            const text = await getText();
+            const word = text.split(' ')[0] || '';
+            res = res.replaceAll('{random}', word);
+          }
+          await i.followUp(`**> ${res}**`);
+          console.log(`Effect: +${good} -${bad}`);
         }
+
+        const nextPart = choice.next?.(t);
+        if (nextPart) currentPart = nextPart;
+        else break;
       }
     }
 
