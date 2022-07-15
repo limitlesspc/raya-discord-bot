@@ -49,10 +49,12 @@ export default command(
       );
 
       await i.followUp({ embeds: [embed], components: [row] });
-      const int = await i.channel?.awaitMessageComponent({
-        filter: int => int.user.id === i.user.id,
-        time: 60_000
-      });
+      const int = await i.channel
+        ?.awaitMessageComponent({
+          filter: int => int.user.id === i.user.id,
+          time: 60_000
+        })
+        .catch(() => null);
       if (!int) return i.followUp('Epiquest ran out of time ⏱');
 
       await int.update({});
@@ -127,10 +129,12 @@ export default command(
       );
 
       await i.followUp({ embeds: [embed], components: [row] });
-      const int = await i.channel?.awaitMessageComponent({
-        filter: int => int.user.id === i.user.id,
-        time: 60_000
-      });
+      const int = await i.channel
+        ?.awaitMessageComponent({
+          filter: int => int.user.id === i.user.id,
+          time: 60_000
+        })
+        .catch(() => null);
       if (!int) return i.followUp('Epiquest ran out of time ⏱');
 
       await int.update({});
