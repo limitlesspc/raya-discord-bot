@@ -1,3 +1,5 @@
+import { MessageAttachment } from 'discord.js';
+
 import command from '$services/command';
 import prisma from '$services/prisma';
 
