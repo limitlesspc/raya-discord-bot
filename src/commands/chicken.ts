@@ -25,7 +25,10 @@ export default command(
     }
     const url = `${process.env.FILES_ORIGIN}/chicken/${name}`;
     if (name.endsWith('.mp3'))
-      return i.reply({ files: [new MessageAttachment(url)] });
+      return i.reply({
+        content: null,
+        files: [new MessageAttachment(url)]
+      });
     return i.reply(url);
   }
 );
