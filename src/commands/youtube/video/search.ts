@@ -1,6 +1,6 @@
 import { searchVideos } from '$services/youtube';
 import command from '$services/command';
-import { createEmbed } from '../embed';
+import { createEmbedBuilder } from '../embed';
 
 export default command(
   {
@@ -23,7 +23,7 @@ export default command(
     try {
       const videos = await searchVideos(query, limit);
 
-      const embed = createEmbed()
+      const embed = createEmbedBuilder()
         .setTitle(`Search results for "${query}"`)
         .setURL(
           `https://www.youtube.com/results?search_query=${query

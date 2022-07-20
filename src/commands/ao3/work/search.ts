@@ -13,7 +13,7 @@ import {
   Warning
 } from '$services/ao3/work/search';
 import command from '$services/command';
-import { createWorkEmbed } from './embed';
+import { createWorkEmbedBuilder } from './embed';
 
 export default command(
   {
@@ -157,7 +157,7 @@ export default command(
     const embeds = await Promise.all(
       works.slice(0, 5).map(async work => {
         const author = await getUser(work.author);
-        return createWorkEmbed(work, author);
+        return createWorkEmbedBuilder(work, author);
       })
     );
     return i.reply({ content: null, embeds, ephemeral: true });

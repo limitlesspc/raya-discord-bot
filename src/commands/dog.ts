@@ -1,4 +1,4 @@
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import fetch from 'node-fetch';
 
 import command from '$services/command';
@@ -22,7 +22,7 @@ export default command(
     const [dog] = data;
     if (!dog) throw new Error('No dog found');
 
-    const embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
       .setTitle('Dog')
       .setColor('#2470D7')
       .setImage(dog.url)

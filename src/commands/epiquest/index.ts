@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
+import { MessageActionRow, EmbedBuilder, MessageSelectMenu } from 'discord.js';
 import { random } from '@limitlesspc/limitless';
 
 import command from '$services/command';
@@ -32,7 +32,7 @@ export default command(
       const question = questions[j]!;
       const { text, answers } = question;
 
-      const embed = new MessageEmbed()
+      const embed = new EmbedBuilder()
         .setTitle(strReplace(typeof text === 'string' ? text : text(inventory)))
         .setDescription(`${i.user.username}'s epiquest`)
         .setColor(color);
@@ -112,7 +112,7 @@ export default command(
     while (true) {
       const { text, choices } = currentPart;
 
-      const embed = new MessageEmbed()
+      const embed = new EmbedBuilder()
         .setTitle(strReplace(text))
         .setDescription(`${i.user.username}'s epiquest`)
         .setColor(color);

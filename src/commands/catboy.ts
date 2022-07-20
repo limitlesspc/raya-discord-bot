@@ -1,4 +1,4 @@
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import fetch from 'node-fetch';
 
 import { incCount } from '$services/users';
@@ -22,7 +22,7 @@ export default command(
     const data = (await response.json()) as Response;
     const { url, artist, artist_url, source_url } = data;
 
-    const embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
       .setTitle('Catboy')
       .setColor('#6839B6')
       .setImage(url)

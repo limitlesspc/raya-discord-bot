@@ -1,4 +1,4 @@
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import fetch from 'node-fetch';
 
 import { incCount } from '$services/users';
@@ -68,7 +68,7 @@ export default command(
       source_url,
       anime_name
     } = result;
-    const embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
       .setColor('#ff0266')
       .setImage(url)
       .setAuthor({ name: artist_name, url: artist_href })

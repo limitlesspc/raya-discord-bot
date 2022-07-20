@@ -1,6 +1,6 @@
 import { getUser, getWork, getWorkId } from '$services/ao3';
 import command from '$services/command';
-import { createWorkEmbed } from './embed';
+import { createWorkEmbedBuilder } from './embed';
 
 export default command(
   {
@@ -17,7 +17,7 @@ export default command(
     const work = await getWork(id);
     const author = await getUser(work.author);
 
-    const embed = createWorkEmbed(work, author);
+    const embed = createWorkEmbedBuilder(work, author);
     return i.reply({ embeds: [embed], ephemeral: true });
   }
 );

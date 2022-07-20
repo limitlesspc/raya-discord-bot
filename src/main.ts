@@ -1,7 +1,8 @@
 import {
   AutocompleteInteraction,
   CommandInteraction,
-  MessageEmbed
+  EmbedBuilder,
+  InteractionType
 } from 'discord.js';
 
 import client from './client';
@@ -67,7 +68,7 @@ function getCommand(
 
 client
   .on('interactionCreate', async i => {
-    if (i.isCommand()) {
+    if (i.type === InteractionType.ApplicationCommand) {
       const command = getCommand(i);
       if (!command) return;
 
@@ -79,27 +80,14 @@ client
             Object.entries(options).map(([name, { type, default: d }]) => {
               let value: OptionValue | null;
               switch (type) {
-                case 'string':
-                  value = i.options.getString(name);
-                  break;
-                case 'int':
-                  value = i.options.getInteger(name);
-                  break;
-                case 'float':
-                  value = i.options.getNumber(name);
-                  break;
-                case 'bool':
-                  value = i.options.getBoolean(name);
-                  break;
                 case 'user':
                   value = i.options.getUser(name);
-                  break;
-                case 'choice':
-                  value = i.options.getString(name);
                   break;
                 case 'attachment':
                   value = i.options.getAttachment(name);
                   break;
+                default:
+                  value = i.options.get(name);
               }
               return [
                 name,
@@ -119,8 +107,8 @@ client
           .join(' ');
         console.error(`Error while running command '${name}':`, error);
         if (error instanceof Error) {
-          const embed = new MessageEmbed()
-            .setColor('RED')
+          const embed = new EmbedBuilder()
+            .setColor('Red')
             .setTitle('Error')
             .setDescription(error.message)
             .setTimestamp();
@@ -134,7 +122,7 @@ client
               .catch(console.error);
         }
       }
-    } else if (i.isAutocomplete()) {
+    } else if (i.type === InteractionType.ApplicationCommandAutocomplete) {
       const command = getCommand(i);
       if (!command) return;
 

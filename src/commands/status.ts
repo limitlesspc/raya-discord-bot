@@ -1,6 +1,6 @@
 import { arch, memoryUsage, platform, uptime, versions } from 'node:process';
 import { cpus, freemem, totalmem } from 'node:os';
-import { MessageEmbed, version } from 'discord.js';
+import { EmbedBuilder, version } from 'discord.js';
 
 import command from '$services/command';
 
@@ -11,7 +11,7 @@ export default command(
   },
   i => {
     const { node, v8 } = versions;
-    const embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
       .setTitle('Status')
       .setColor('#3AA65B')
       .addField('⬢ Node.js', node)

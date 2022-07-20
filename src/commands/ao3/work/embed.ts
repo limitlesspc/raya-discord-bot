@@ -6,9 +6,9 @@ import {
   User,
   Work
 } from '$services/ao3';
-import { createEmbed } from '../embed';
+import { createEmbedBuilder } from '../embed';
 
-export function createWorkEmbed(
+export function createWorkEmbedBuilder(
   {
     id,
     title,
@@ -26,7 +26,7 @@ export function createWorkEmbed(
   }: Work,
   { url: authorURL, iconURL }: User
 ) {
-  const embed = createEmbed()
+  const embed = createEmbedBuilder()
     .setTitle(title)
     .setAuthor({ name: author, url: authorURL, iconURL })
     .setURL(`${query}${id}`)

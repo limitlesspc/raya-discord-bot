@@ -1,4 +1,4 @@
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import fetch from 'node-fetch';
 
 import command from '$services/command';
@@ -22,7 +22,7 @@ export default command(
     const [cat] = data;
     if (!cat) throw new Error('No cat found');
 
-    const embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
       .setTitle('Cat')
       .setColor('#D24515')
       .setImage(cat.url)

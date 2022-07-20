@@ -1,6 +1,6 @@
 import { formatDuration, getVideo } from '$services/youtube';
 import command from '$services/command';
-import { createEmbed } from '../embed';
+import { createEmbedBuilder } from '../embed';
 
 export default command(
   {
@@ -27,7 +27,7 @@ export default command(
         uploadedAt
       } = await getVideo(url);
 
-      const embed = createEmbed()
+      const embed = createEmbedBuilder()
         .setTitle(title)
         .setAuthor({
           name: channel.title,

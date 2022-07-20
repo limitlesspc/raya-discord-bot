@@ -1,6 +1,6 @@
 import { getNameFromURL, getUser } from '$services/ao3';
 import command from '$services/command';
-import { createEmbed } from '../embed';
+import { createEmbedBuilder } from '../embed';
 
 export default command(
   {
@@ -17,7 +17,7 @@ export default command(
       const id = getNameFromURL(url);
       const { name, url: authorURL, iconURL } = await getUser(id);
 
-      const embed = createEmbed()
+      const embed = createEmbedBuilder()
         .setColor('#990000')
         .setTitle(name)
         .setURL(authorURL)

@@ -1,4 +1,4 @@
-import { ColorResolvable, MessageEmbed } from 'discord.js';
+import { ColorResolvable, EmbedBuilder } from 'discord.js';
 
 import { incCount } from '$services/users';
 import command from '$services/command';
@@ -48,7 +48,7 @@ export default command(
     console.log(data);
     if (!image) throw new Error('No waifu found');
 
-    const embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
       .setTitle(image.tags.map(t => t.name).join(', '))
       .setURL(image.url)
       .setDescription(image.tags.map(t => t.description).join(', '))

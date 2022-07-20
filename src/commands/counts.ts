@@ -1,4 +1,4 @@
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 
 import { getUser } from '$services/users';
 import command from '$services/command';
@@ -16,7 +16,7 @@ export default command(
   },
   async (i, { user = i.user }) => {
     const data = await getUser(user.id);
-    const embed = new MessageEmbed().setTitle(`${user.username}'s counts`);
+    const embed = new EmbedBuilder().setTitle(`${user.username}'s counts`);
     if (data?.counts)
       embed.addFields(
         ...Object.entries(data.counts).map(([name, count]) => ({
