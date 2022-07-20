@@ -33,31 +33,32 @@ export function createWorkEmbedBuilder(
     .setThumbnail(
       `${process.env.FILES_ORIGIN}/ao3/squares/${symbols.rating}_${symbols.category}_${symbols.warning}_${symbols.complete}.png`
     );
-  if (rating) embed.addField('Rating', ratings[rating]);
+  if (rating) embed.addFields({ name: 'Rating', value: ratings[rating] });
   if (warnings.length)
-    embed.addField(
-      'Warnings',
-      warnings.map(warning => contentWarnings[warning]).join(', ')
-    );
+    embed.addFields({
+      name: 'Warnings',
+      value: warnings.map(warning => contentWarnings[warning]).join(', ')
+    });
   if (workCategories.length)
-    embed.addField(
-      'Categories',
-      workCategories.map(category => categories[category]).join(', ')
-    );
+    embed.addFields({
+      name: 'Categories',
+      value: workCategories.map(category => categories[category]).join(', ')
+    });
   if (relationships.length)
-    embed.addField('Relationships', relationships.join(', '));
-  if (characters.length) embed.addField('Characters', characters.join(', '));
-  if (tags.length) embed.addField('Tags', tags.join(', '));
-  embed.addField('Language', language);
+    embed.addFields({ name: 'Relationships', value: relationships.join(', ') });
+  if (characters.length)
+    embed.addFields({ name: 'Characters', value: characters.join(', ') });
+  if (tags.length) embed.addFields({ name: 'Tags', value: tags.join(', ') });
+  embed.addFields({ name: 'Language', value: language });
   if (series)
-    embed.addField(
-      'Series',
-      `[${series.title}](https://archiveofourown.org/series/${series.id})`
-    );
+    embed.addFields({
+      name: 'Series',
+      value: `[${series.title}](https://archiveofourown.org/series/${series.id})`
+    });
 
-  embed.addField(
-    'Stats:',
-    `* Published: ${published.toLocaleString('en-US', {
+  embed.addFields({
+    name: 'Stats:',
+    value: `* Published: ${published.toLocaleString('en-US', {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit'
@@ -76,6 +77,6 @@ export function createWorkEmbedBuilder(
 * Kudos: ${kudos}
 * Bookmarks: ${bookmarks}
 * Hits: ${hits}`
-  );
+  });
   return embed;
 }

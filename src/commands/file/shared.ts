@@ -1,4 +1,4 @@
-import { CommandInteraction, MessageAttachment } from 'discord.js';
+import { CommandInteraction, AttachmentBuilder } from 'discord.js';
 
 export const types = ['image', 'video', 'audio'] as const;
 export type Type = typeof types[number];
@@ -14,7 +14,7 @@ export function sendFile(i: CommandInteraction, fileName: string) {
   if (extensions.audio.includes(extension))
     return i.reply({
       content: null,
-      files: [new MessageAttachment(url, fileName)]
+      files: [new AttachmentBuilder(url, { name: fileName })]
     });
   return i.reply(url);
 }

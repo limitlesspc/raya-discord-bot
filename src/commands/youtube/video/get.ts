@@ -66,7 +66,8 @@ export default command(
             ? description
             : `${description.slice(0, maxDesc - 3)}...`
         );
-      if (tags.length) embed.addField('Tags', tags.join(', '));
+      if (tags.length)
+        embed.addFields({ name: 'Tags', value: tags.join(', ') });
 
       return await i.reply({
         embeds: [embed]

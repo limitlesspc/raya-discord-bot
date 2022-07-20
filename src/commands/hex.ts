@@ -1,4 +1,4 @@
-import { MessageAttachment } from 'discord.js';
+import { AttachmentBuilder } from 'discord.js';
 import { createCanvas } from '@napi-rs/canvas';
 
 import command from '$services/command';
@@ -26,7 +26,7 @@ export default command(
     ctx.fillRect(0, 0, size, size);
 
     return i.reply({
-      files: [new MessageAttachment(canvas.toBuffer('image/png'))]
+      files: [new AttachmentBuilder(canvas.toBuffer('image/png'))]
     });
   }
 );

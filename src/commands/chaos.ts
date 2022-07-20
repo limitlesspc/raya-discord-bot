@@ -1,4 +1,4 @@
-import { MessageAttachment } from 'discord.js';
+import { AttachmentBuilder } from 'discord.js';
 import { createCanvas } from '@napi-rs/canvas';
 import { randomInt, vec2, Vector2 } from '@limitlesspc/limitless';
 
@@ -61,7 +61,7 @@ export default command(
 
     console.log('Done');
     return i.editReply({
-      files: [new MessageAttachment(canvas.toBuffer('image/png'))]
+      files: [new AttachmentBuilder(canvas.toBuffer('image/png'))]
     });
   }
 );

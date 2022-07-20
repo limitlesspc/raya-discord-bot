@@ -1,6 +1,6 @@
 import {
   AutocompleteInteraction,
-  CommandInteraction,
+  ChatInputCommandInteraction,
   EmbedBuilder,
   InteractionType
 } from 'discord.js';
@@ -42,7 +42,7 @@ function normalize(
 }
 
 function getCommand(
-  i: CommandInteraction | AutocompleteInteraction
+  i: ChatInputCommandInteraction | AutocompleteInteraction
 ): Command | void {
   const command = commands[i.commandName];
   if (!command) return;
@@ -68,7 +68,7 @@ function getCommand(
 
 client
   .on('interactionCreate', async i => {
-    if (i.type === InteractionType.ApplicationCommand) {
+    if (i.isChatInputCommand()) {
       const command = getCommand(i);
       if (!command) return;
 

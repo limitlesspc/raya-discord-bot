@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import { MessageAttachment } from 'discord.js';
+import { AttachmentBuilder } from 'discord.js';
 import { createCanvas } from '@napi-rs/canvas';
 
 import { strTo16x16 } from '$services/hash';
@@ -61,7 +61,7 @@ export default command(
     }
 
     return i.reply({
-      files: [new MessageAttachment(canvas.toBuffer('image/png'))]
+      files: [new AttachmentBuilder(canvas.toBuffer('image/png'))]
     });
   }
 );

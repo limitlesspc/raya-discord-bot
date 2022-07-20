@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { MessageActionRow, EmbedBuilder, MessageSelectMenu } from 'discord.js';
+import { ActionRowBuilder, EmbedBuilder, SelectMenuBuilder } from 'discord.js';
 import { random } from '@limitlesspc/limitless';
 
 import command from '$services/command';
@@ -36,10 +36,11 @@ export default command(
         .setTitle(strReplace(typeof text === 'string' ? text : text(inventory)))
         .setDescription(`${i.user.username}'s epiquest`)
         .setColor(color);
-      if (inventory.length) embed.addField('Inventory', inventory.join('\n'));
+      if (inventory.length)
+        embed.addFields({ name: 'Inventory', value: inventory.join('\n') });
 
-      const row = new MessageActionRow().addComponents(
-        new MessageSelectMenu().setCustomId(`select_${i.user.id}`).addOptions(
+      const row = new ActionRowBuilder().addComponents(
+        new SelectMenuBuilder().setCustomId(`select_${i.user.id}`).addOptions(
           ...answers.map(({ text, emoji }) => ({
             emoji,
             label: strReplace(typeof text === 'string' ? text : text()),
@@ -116,10 +117,11 @@ export default command(
         .setTitle(strReplace(text))
         .setDescription(`${i.user.username}'s epiquest`)
         .setColor(color);
-      if (inventory.length) embed.addField('Inventory', inventory.join('\n'));
+      if (inventory.length)
+        embed.addFields({ name: 'Inventory', value: inventory.join('\n') });
 
-      const row = new MessageActionRow().addComponents(
-        new MessageSelectMenu().setCustomId(`select_${i.user.id}`).addOptions(
+      const row = new ActionRowBuilder().addComponents(
+        new SelectMenuBuilder().setCustomId(`select_${i.user.id}`).addOptions(
           ...choices.map(({ text, emoji }) => ({
             emoji,
             label: strReplace(text),

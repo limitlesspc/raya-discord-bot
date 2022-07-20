@@ -1,4 +1,4 @@
-import { MessageAttachment } from 'discord.js';
+import { AttachmentBuilder } from 'discord.js';
 
 import command from '$services/command';
 import prisma from '$services/prisma';
@@ -31,7 +31,7 @@ export default command(
     if (name.endsWith('.mp3'))
       return i.reply({
         content: null,
-        files: [new MessageAttachment(url)]
+        files: [new AttachmentBuilder(url)]
       });
     return i.reply(url);
   }

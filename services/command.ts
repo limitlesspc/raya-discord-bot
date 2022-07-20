@@ -1,4 +1,4 @@
-import type { CommandInteraction, MessageAttachment, User } from 'discord.js';
+import type { Attachment, User, ChatInputCommandInteraction } from 'discord.js';
 
 export interface CommandOptionType {
   string: string;
@@ -7,7 +7,7 @@ export interface CommandOptionType {
   bool: boolean;
   user: User;
   choice: string;
-  attachment: MessageAttachment;
+  attachment: Attachment;
 }
 type Type = keyof CommandOptionType;
 
@@ -41,11 +41,11 @@ export type OptionValue<T extends Option = Option> =
     : ValueFromOption<T>;
 
 type Handler<T extends Options = Options> = (
-  i: CommandInteraction,
+  i: ChatInputCommandInteraction,
   options: {
     [K in keyof T]: OptionValue<T[K]>;
   }
-) => void;
+) => any | Promise<any>;
 
 interface CommandOptions<T extends Options> {
   desc: string;

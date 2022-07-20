@@ -14,19 +14,31 @@ export default command(
     const embed = new EmbedBuilder()
       .setTitle('Status')
       .setColor('#3AA65B')
-      .addField('⬢ Node.js', node)
-      .addField('V8', v8)
-      .addField('Discord.js', `v${version}`)
-      .addField('Platform', platform)
-      .addField('💻 Architecture', arch)
-      .addField('Uptime', `${Math.floor(uptime() / 60)} min`)
-      .addField(
-        'Memory',
-        `${Math.floor(memoryUsage().heapUsed / 1024 / 1024)} MB`
-      )
-      .addField('Total OS Memory', `${Math.floor(totalmem() / 1024 / 1024)} MB`)
-      .addField('Free OS Memory', `${Math.floor(freemem() / 1024 / 1024)} MB`)
-      .addField('Logical CPU Cores', `${cpus().length}`);
+      .addFields(
+        { name: '⬢ Node.js', value: node },
+        { name: 'V8', value: v8 },
+        { name: 'Discord.js', value: `v${version}` },
+        { name: 'Platform', value: platform },
+        { name: '💻 Architecture', value: arch },
+        { name: '⏱ Uptime', value: `${Math.floor(uptime() / 60)} min` },
+        {
+          name: '💾 Memory Used',
+          value: `${Math.floor(memoryUsage().heapUsed / 1024 / 1024)} MB`
+        },
+        {
+          name: '💾 Memory Total',
+          value: `${Math.floor(memoryUsage().heapTotal / 1024 / 1024)} MB`
+        },
+        {
+          name: '💾 Total OS Memory',
+          value: `${Math.floor(totalmem() / 1024 / 1024)} MB`
+        },
+        {
+          name: '💾 Free OS Memory',
+          value: `${Math.floor(freemem() / 1024 / 1024)} MB`
+        },
+        { name: 'Logical CPU Cores', value: `${cpus().length} cores` }
+      );
     return i.reply({ embeds: [embed] });
   }
 );

@@ -1,4 +1,4 @@
-import { ColorResolvable, EmbedBuilder } from 'discord.js';
+import { ChannelType, ColorResolvable, EmbedBuilder } from 'discord.js';
 
 import { incCount } from '$services/users';
 import command from '$services/command';
@@ -30,9 +30,9 @@ export default command(
   async (i, { option }) => {
     if (
       option === 'nsfw' &&
-      (i.channel?.type === 'GUILD_TEXT' ||
-        i.channel?.type === 'GUILD_NEWS' ||
-        i.channel?.type === 'GUILD_VOICE') &&
+      (i.channel?.type === ChannelType.GuildText ||
+        i.channel?.type === ChannelType.GuildNews ||
+        i.channel?.type === ChannelType.GuildVoice) &&
       !i.channel.nsfw
     )
       return i.reply({

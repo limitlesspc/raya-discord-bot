@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { MessageAttachment } from 'discord.js';
+import { AttachmentBuilder } from 'discord.js';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
 
 import command from '$services/command';
@@ -17,7 +17,7 @@ export default command(
   async (i, { image }) => {
     await i.deferReply();
     const url =
-      image.url || i.user.displayAvatarURL({ format: 'png', size: 512 });
+      image.url || i.user.displayAvatarURL({ extension: 'png', size: 512 });
     const img = await loadImage(url).catch(() => null);
     if (!img) return i.reply('Could not load image');
 
@@ -47,7 +47,7 @@ export default command(
     ctx.putImageData(imageData, 0, 0);
 
     return i.editReply({
-      files: [new MessageAttachment(canvas.toBuffer('image/png'))]
+      files: [new AttachmentBuilder(canvas.toBuffer('image/png'))]
     });
   }
 );
