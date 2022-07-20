@@ -17,7 +17,7 @@ export default command(
       .map(s => s.trim())
       .filter(Boolean);
     await prisma.ratio.createMany({
-      data: ratioStrs.map(s => ({ text: s })),
+      data: ratioStrs.map(s => ({ content: s })),
       skipDuplicates: true
     });
     return i.reply('Added to ratios');

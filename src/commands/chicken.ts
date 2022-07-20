@@ -19,7 +19,9 @@ export default command(
     if (sticken) name = stickenFileName;
     else {
       const count = await prisma.chicken.count();
+      console.log(count);
       const skip = Math.floor(Math.random() * count);
+      console.log(skip);
       const chicken = await prisma.chicken.findFirstOrThrow({ skip });
       name = chicken.name;
     }

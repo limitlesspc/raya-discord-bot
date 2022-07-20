@@ -16,11 +16,11 @@ export default command(
     const skip = Math.floor(Math.random() * Math.max(count - NUM_RATIOS, 0));
     const ratios = await prisma.ratio.findMany({
       select: {
-        text: true
+        content: true
       },
       skip
     });
-    const texts = shuffle(ratios.map(({ text }) => text));
+    const texts = shuffle(ratios.map(({ content }) => content));
     await incCount(i.user.id, 'ratio');
     return i.reply(
       texts.join(' + ') ||
