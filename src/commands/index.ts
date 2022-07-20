@@ -6,6 +6,7 @@ export { default as catboy } from './catboy';
 export { default as chaos } from './chaos';
 export { default as chicken } from './chicken';
 export { default as counts } from './counts';
+export { default as dalle } from './dalle';
 export { default as dog } from './dog';
 export { default as epiquest } from './epiquest';
 export { default as hex } from './hex';
