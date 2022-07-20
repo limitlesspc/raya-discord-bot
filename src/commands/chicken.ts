@@ -1,3 +1,5 @@
+import { MessageAttachment } from 'discord.js';
+
 import command from '$services/command';
 import prisma from '$services/prisma';
 
@@ -25,6 +27,12 @@ export default command(
       const chicken = await prisma.chicken.findFirstOrThrow({ skip });
       name = chicken.name;
     }
-    return i.reply(`${process.env.FILES_ORIGIN}/chicken/${name}`);
+    const url = `${process.env.FILES_ORIGIN}/chicken/${name}`;
+    if (name.endsWith('.mp3'))
+      return i.reply({
+        content: null,
+        files: [new MessageAttachment(url)]
+      });
+    return i.reply(url);
   }
 );
