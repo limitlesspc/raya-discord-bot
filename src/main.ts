@@ -87,7 +87,7 @@ client
                   value = i.options.getAttachment(name);
                   break;
                 default:
-                  value = i.options.get(name);
+                  value = i.options.get(name)?.value || '';
               }
               return [
                 name,
