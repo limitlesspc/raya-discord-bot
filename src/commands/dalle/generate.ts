@@ -72,8 +72,7 @@ export default command(
       console.log(`Uploaded ${fileURL}`);
     }
 
-    await i.editReply(`${prompt}
+    return i.editReply(`${prompt}
 ${urls.join(' ')}`);
-    return i.followUp(prompt);
   }
 );
