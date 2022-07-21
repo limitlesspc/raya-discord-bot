@@ -13,6 +13,7 @@ export default command(
     }
   },
   async (i, { prompt }) => {
+    await i.deferReply();
     const user = await prisma.user.findUnique({
       select: {
         lastDalleAt: true
@@ -27,7 +28,6 @@ export default command(
       if (diff < 1000 * 60 * 60 * 24)
         return i.editReply('You can only generate new images every 24 hours');
     }
-    await i.deferReply();
     const urls = await generate(prompt);
     await prisma.user.upsert({
       create: {

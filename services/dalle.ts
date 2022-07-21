@@ -42,7 +42,8 @@ export async function generate(prompt: string): Promise<string[]> {
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${process.env.DALLE2_TOKEN}`
+      Authorization: `Bearer ${process.env.DALLE2_TOKEN}`,
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       task_type: 'text2im',
@@ -52,17 +53,19 @@ export async function generate(prompt: string): Promise<string[]> {
       }
     })
   });
-  const { id }: Task = await response.json();
-  const task = await new Promise<Task>(resolve => {
+  const task: Task = await response.json();
+  console.log('task:', task);
+  const finishedTask = await new Promise<Task>(resolve => {
     const interval = setInterval(async () => {
-      const task = await getTask(id);
-      if (task.status === 'succeeded') {
+      const nextTask = await getTask(task.id);
+      console.log('nextTask:', nextTask);
+      if (nextTask.status !== 'pending') {
         clearInterval(interval);
-        resolve(task as Task);
+        resolve(nextTask);
       }
     }, 1000);
   });
-  return (task.generations?.data || []).map(
+  return (finishedTask.generations?.data || []).map(
     ({ generation }) => generation.image_path
   );
 }
