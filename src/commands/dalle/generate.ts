@@ -1,10 +1,11 @@
 import command from '$services/command';
 import { generate } from '$services/dalle';
 import prisma from '$services/prisma';
+import { getLastUsedAt, WAIT_MILLIS } from './shared';
 
 export default command(
   {
-    desc: 'For now, just returns the number of free credits left',
+    desc: `Create 4 images from a prompt using OpenAI's DALL·E 2`,
     options: {
       prompt: {
         type: 'string',
@@ -14,18 +15,11 @@ export default command(
   },
   async (i, { prompt }) => {
     await i.deferReply();
-    const user = await prisma.user.findUnique({
-      select: {
-        lastDalleAt: true
-      },
-      where: {
-        id: i.user.id
-      }
-    });
-    if (user?.lastDalleAt) {
+    const lastDalleAt = await getLastUsedAt(i.user.id);
+    if (lastDalleAt) {
       const now = new Date().getTime();
-      const diff = now - user.lastDalleAt.getTime();
-      if (diff < 1000 * 60 * 60 * 24)
+      const diff = now - lastDalleAt.getTime();
+      if (diff < WAIT_MILLIS)
         return i.editReply('You can only generate new images every 24 hours');
     }
     const task = await generate(prompt);
@@ -45,6 +39,7 @@ export default command(
         id: i.user.id
       }
     });
-    return i.editReply(task.urls.join(' '));
+    await i.editReply(task.urls.join(' '));
+    return i.followUp(prompt);
   }
 );
