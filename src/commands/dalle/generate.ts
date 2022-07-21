@@ -28,7 +28,11 @@ export default command(
       if (diff < 1000 * 60 * 60 * 24)
         return i.editReply('You can only generate new images every 24 hours');
     }
-    const urls = await generate(prompt);
+    const task = await generate(prompt);
+    if (task.error)
+      return i.editReply(
+        `Error \`${task.error}\`: your prompt doesn't follow the content policy`
+      );
     await prisma.user.upsert({
       create: {
         id: i.user.id,
@@ -41,6 +45,6 @@ export default command(
         id: i.user.id
       }
     });
-    return i.editReply(urls.join(' '));
+    return i.editReply(task.urls.join(' '));
   }
 );

@@ -8,8 +8,12 @@ interface Task {
   id: `task-${string}`;
   created: number;
   task_type: 'text2im';
-  status: 'pending' | 'succeeded';
-  status_information: {};
+  status: 'pending' | 'succeeded' | 'rejected';
+  status_information: {
+    type?: 'error';
+    code?: 'task_failed_text_safety_system';
+    message?: string;
+  };
   prompt_id: `prompt-${string}`;
   prompt: {
     id: `prompt-${string}`;
@@ -38,7 +42,7 @@ interface Task {
   };
 }
 
-export async function generate(prompt: string): Promise<string[]> {
+export async function generate(prompt: string) {
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -65,9 +69,12 @@ export async function generate(prompt: string): Promise<string[]> {
       }
     }, 1000);
   });
-  return (finishedTask.generations?.data || []).map(
-    ({ generation }) => generation.image_path
-  );
+  return {
+    urls: (finishedTask.generations?.data || []).map(
+      ({ generation }) => generation.image_path
+    ),
+    error: finishedTask.status_information.code
+  };
 }
 
 async function getTask(id: string): Promise<Task> {
