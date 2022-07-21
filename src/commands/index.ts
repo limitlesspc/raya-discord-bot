@@ -32,7 +32,7 @@ export default { '8ball': ball };
 
 export * as ao3 from './ao3';
 export * as cipher from './cipher';
-export * from './dalle';
+export * as dalle from './dalle';
 export * as file from './file';
 export * as ratio from './ratio';
 export * as y7 from './y7';
