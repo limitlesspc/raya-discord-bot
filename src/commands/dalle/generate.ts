@@ -51,16 +51,25 @@ export default command(
     const urls: string[] = [];
     for (const { id, url } of task.files) {
       const response = await fetch(url);
-      const stream = filesBucket
-        .file(`dalle/${id}`)
-        .createWriteStream({ gzip: true });
+      const stream = filesBucket.file(`dalle/${id}`).createWriteStream({
+        gzip: true,
+        metadata: {
+          metadata: {
+            uid: i.user.id,
+            prompt
+          }
+        }
+      });
       response.body.pipe(stream);
-      const fileURL = await new Promise<string>(resolve =>
-        stream.on('finish', () =>
-          resolve(`https://${process.env.FILES_DOMAIN}/dalle/${id}`)
-        )
+      const fileURL = await new Promise<string>((resolve, reject) =>
+        stream
+          .on('finish', () =>
+            resolve(`https://${process.env.FILES_DOMAIN}/dalle/${id}.webp`)
+          )
+          .on('error', reject)
       );
       urls.push(fileURL);
+      console.log(`Uploaded ${fileURL}`);
     }
 
     await i.editReply(`${prompt}
