@@ -1,6 +1,8 @@
+import fetch from 'node-fetch';
 import command from '$services/command';
 import { generate } from '$services/dalle';
 import prisma from '$services/prisma';
+import { filesBucket } from '$services/storage';
 import { getLastUsedAt, WAIT_MILLIS } from './shared';
 
 export default command(
@@ -44,7 +46,25 @@ export default command(
         id: i.user.id
       }
     });
-    await i.editReply(task.urls.join(' '));
+    await i.editReply('Uploading images...');
+
+    const urls: string[] = [];
+    for (const { id, url } of task.files) {
+      const response = await fetch(url);
+      const stream = filesBucket
+        .file(`dalle/${id}`)
+        .createWriteStream({ gzip: true });
+      response.body.pipe(stream);
+      const fileURL = await new Promise<string>(resolve =>
+        stream.on('finish', () =>
+          resolve(`https://${process.env.FILES_DOMAIN}/dalle/${id}`)
+        )
+      );
+      urls.push(fileURL);
+    }
+
+    await i.editReply(`${prompt}
+${urls.join(' ')}`);
     return i.followUp(prompt);
   }
 );

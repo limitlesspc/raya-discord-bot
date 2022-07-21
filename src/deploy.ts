@@ -7,9 +7,9 @@ import type {
   CommandGroups,
   CommandOptionType,
   Commands
-} from '../services/command';
+} from '$services/command';
 
-import './env';
+import '$services/env';
 
 const commandOptionTypeMap: Record<
   keyof CommandOptionType,

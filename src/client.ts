@@ -1,6 +1,6 @@
 import { Client, IntentsBitField, Options } from 'discord.js';
 
-import './env';
+import '$services/env';
 
 const { NAME, DISCORD_TOKEN } = process.env;
 console.log(`⏳ ${NAME} is starting...`);

@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import '../../src/env';
+import '../env';
 import { getVideo, searchVideos } from './video';
 
 test('get video', async t => {

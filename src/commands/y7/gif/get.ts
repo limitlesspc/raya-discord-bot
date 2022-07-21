@@ -25,7 +25,7 @@ export default command(
     });
     if (!gif) return i.reply('No image found');
 
-    const url = `${process.env.FILES_ORIGIN}/y7/images/${gif.name}`;
+    const url = `${process.env.FILES_DOMAIN}/y7/images/${gif.name}`;
     return i.reply(url);
   }
 );

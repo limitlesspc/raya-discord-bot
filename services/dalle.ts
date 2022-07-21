@@ -70,9 +70,10 @@ export async function generate(prompt: string) {
     }, 1000);
   });
   return {
-    urls: (finishedTask.generations?.data || []).map(
-      ({ generation }) => generation.image_path
-    ),
+    files: (finishedTask.generations?.data || []).map(({ id, generation }) => ({
+      id: id.replace('generation-', ''),
+      url: generation.image_path
+    })),
     error: finishedTask.status_information.code
   };
 }

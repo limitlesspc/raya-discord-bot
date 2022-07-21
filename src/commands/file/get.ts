@@ -23,7 +23,7 @@ export default command(
     if (googas)
       return i.reply(
         ['googas.mp4', 'gradi.png']
-          .map(name => `${process.env.FILES_ORIGIN}/discord/${name}`)
+          .map(name => `${process.env.FILES_DOMAIN}/discord/${name}`)
           .join(' ')
       );
 
