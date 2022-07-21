@@ -14,7 +14,7 @@ interface Response {
 
 export default command(
   {
-    desc: 'For now, just returns the number of free credits left',
+    desc: 'Get the number of DALL·E 2 credits left',
     options: {}
   },
   async i => {
@@ -27,6 +27,6 @@ export default command(
       }
     );
     const { aggregate_credits }: Response = await response.json();
-    return i.reply(`${aggregate_credits} free credits left`);
+    return i.reply(`${aggregate_credits} credits remaining`);
   }
 );
