@@ -51,7 +51,8 @@ export default command(
     const urls: string[] = [];
     for (const { id, url } of task.files) {
       const response = await fetch(url);
-      const stream = filesBucket.file(`dalle/${id}`).createWriteStream({
+      const path = `dalle/${id}.webp`;
+      const stream = filesBucket.file(path).createWriteStream({
         gzip: true,
         metadata: {
           metadata: {
@@ -64,7 +65,7 @@ export default command(
       const fileURL = await new Promise<string>((resolve, reject) =>
         stream
           .on('finish', () =>
-            resolve(`https://${process.env.FILES_DOMAIN}/dalle/${id}.webp`)
+            resolve(`https://${process.env.FILES_DOMAIN}/${path}`)
           )
           .on('error', reject)
       );
