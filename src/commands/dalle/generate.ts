@@ -14,14 +14,19 @@ export default command(
     }
   },
   async (i, { prompt }) => {
+    if (i.user.bot) return i.reply('Bots cannot use DALL·E 2');
     await i.deferReply();
-    const lastDalleAt = await getLastUsedAt(i.user.id);
-    if (lastDalleAt) {
-      const now = new Date().getTime();
-      const diff = now - lastDalleAt.getTime();
-      if (diff < WAIT_MILLIS)
-        return i.editReply('You can only generate new images every 24 hours');
+
+    if (i.user.id !== process.env.OWNER_ID) {
+      const lastDalleAt = await getLastUsedAt(i.user.id);
+      if (lastDalleAt) {
+        const now = new Date().getTime();
+        const diff = now - lastDalleAt.getTime();
+        if (diff < WAIT_MILLIS)
+          return i.editReply('You can only generate new images every 24 hours');
+      }
     }
+
     const task = await generate(prompt);
     if (task.error)
       return i.editReply(

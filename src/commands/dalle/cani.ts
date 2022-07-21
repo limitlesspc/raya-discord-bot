@@ -7,6 +7,12 @@ export default command(
     options: {}
   },
   async i => {
+    if (i.user.bot) return i.reply('Bots cannot use DALL·E 2 generate');
+    if (i.user.id === process.env.OWNER_ID)
+      return i.reply(
+        'You created this bot, so you can always generate new images'
+      );
+
     const lastDalleAt = await getLastUsedAt(i.user.id);
     if (!lastDalleAt) return i.reply('You can generate new images now!');
 

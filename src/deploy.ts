@@ -114,7 +114,7 @@ const rest = new REST({ version: '10' }).setToken(
 );
 
 rest
-  .put(Routes.applicationCommands(process.env.DISCORD_APP_ID || ''), {
+  .put(Routes.applicationCommands(process.env.DISCORD_ID || ''), {
     body: data
   })
   .then(() => console.log(buildCount, 'commands registered'))
