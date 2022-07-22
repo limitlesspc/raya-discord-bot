@@ -23,7 +23,7 @@ export default command(
     });
     if (!image) return i.reply('No image found');
 
-    const url = `${process.env.FILES_DOMAIN}/y7/images/${image.name}`;
+    const url = `https://${process.env.FILES_DOMAIN}/y7/images/${image.name}`;
     return i.reply(url);
   }
 );

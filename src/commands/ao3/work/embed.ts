@@ -31,7 +31,7 @@ export function createWorkEmbedBuilder(
     .setAuthor({ name: author, url: authorURL, iconURL })
     .setURL(`${query}${id}`)
     .setThumbnail(
-      `${process.env.FILES_DOMAIN}/ao3/squares/${symbols.rating}_${symbols.category}_${symbols.warning}_${symbols.complete}.png`
+      `https://${process.env.FILES_DOMAIN}/ao3/squares/${symbols.rating}_${symbols.category}_${symbols.warning}_${symbols.complete}.png`
     );
   if (rating) embed.addFields({ name: 'Rating', value: ratings[rating] });
   if (warnings.length)

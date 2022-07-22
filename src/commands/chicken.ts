@@ -27,7 +27,7 @@ export default command(
       const chicken = await prisma.chicken.findFirstOrThrow({ skip });
       name = chicken.name;
     }
-    const url = `${process.env.FILES_DOMAIN}/chicken/${name}`;
+    const url = `https://${process.env.FILES_DOMAIN}/chicken/${name}`;
     if (name.endsWith('.mp3'))
       return i.reply({
         content: null,

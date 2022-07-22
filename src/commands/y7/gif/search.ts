@@ -32,7 +32,7 @@ export default command(
     }
   },
   (i, { file_name }) => {
-    const url = `${process.env.FILES_DOMAIN}/y7/images/${file_name}`;
+    const url = `https://${process.env.FILES_DOMAIN}/y7/images/${file_name}`;
     return i.reply(url);
   }
 );

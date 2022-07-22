@@ -9,7 +9,7 @@ export const extensions: Record<Type, string[]> = {
 };
 
 export function sendFile(i: CommandInteraction, fileName: string) {
-  const url = `${process.env.FILES_DOMAIN}/discord/${fileName}`;
+  const url = `https://${process.env.FILES_DOMAIN}/discord/${fileName}`;
   const extension = fileName.split('.').pop() || '';
   if (extensions.audio.includes(extension))
     return i.reply({
