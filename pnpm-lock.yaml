@@ -5,7 +5,7 @@ specifiers:
   '@google-cloud/storage': ^6.2.3
   '@googleapis/customsearch': ^0.3.2
   '@googleapis/youtube': ^6.0.0
-  '@limitlesspc/limitless': ^0.0.3
+  '@limitlesspc/limitless': ^0.0.4
   '@napi-rs/canvas': ^0.1.25
   '@prisma/client': 4.1.0
   '@swc-node/register': ^1.5.1
@@ -35,7 +35,7 @@ dependencies:
   '@google-cloud/storage': 6.2.3
   '@googleapis/customsearch': 0.3.2
   '@googleapis/youtube': 6.0.0
-  '@limitlesspc/limitless': 0.0.3
+  '@limitlesspc/limitless': 0.0.4
   '@napi-rs/canvas': 0.1.25
   '@prisma/client': 4.1.0_prisma@4.1.0
   cheerio: 1.0.0-rc.12
@@ -192,8 +192,8 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@limitlesspc/limitless/0.0.3:
-    resolution: {integrity: sha512-XwIyh0dBsAKfza16k4aaQCTAe32gy/BIEWqG7AXyLVs7NlGFfj2dTl54ckMKYV+Z6Z1FoYj9QcRqfHYT+YUgyQ==}
+  /@limitlesspc/limitless/0.0.4:
+    resolution: {integrity: sha512-3uQ+jK4Q3Jj4avaU8x9+Z4lmiAxEzQd+m55HC5rC2Sqm7zrBC0+7FfOCo+VtASyvHQKNwZS0rdhtjg7lKa732Q==}
     dependencies:
       cheerio: 1.0.0-rc.12
       cross-fetch: 3.1.5

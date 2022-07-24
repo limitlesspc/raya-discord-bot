@@ -20,7 +20,7 @@
     "@google-cloud/storage": "^6.2.3",
     "@googleapis/customsearch": "^0.3.2",
     "@googleapis/youtube": "^6.0.0",
-    "@limitlesspc/limitless": "^0.0.3",
+    "@limitlesspc/limitless": "^0.0.4",
     "@napi-rs/canvas": "^0.1.25",
     "@prisma/client": "4.1.0",
     "cheerio": "1.0.0-rc.12",
