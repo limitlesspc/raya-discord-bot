@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import fetch from 'node-fetch';
+import fetch from 'cross-fetch';
 
 const url = 'https://labs.openai.com/api/labs/tasks';
 

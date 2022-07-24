@@ -1,4 +1,4 @@
-import { getUser, getWork, getWorkId } from '$services/ao3';
+import { getUser, getWork, getWorkId } from 'limitless/api/ao3';
 import command from '$services/command';
 import { createWorkEmbedBuilder } from './embed';
 

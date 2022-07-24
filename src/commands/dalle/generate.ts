@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import fetch from 'cross-fetch';
 import command from '$services/command';
 import { generate } from '$services/dalle';
 import prisma from '$services/prisma';

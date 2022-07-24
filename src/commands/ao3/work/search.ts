@@ -4,14 +4,14 @@ import {
   searchFandoms,
   searchRelationships,
   searchTags
-} from '$services/ao3';
+} from 'limitless/api/ao3';
 import {
   Category,
   OrderBy,
   Rating,
   searchWorks,
   Warning
-} from '$services/ao3/work/search';
+} from 'limitless/api/ao3/work/search';
 import command from '$services/command';
 import { createWorkEmbedBuilder } from './embed';
 

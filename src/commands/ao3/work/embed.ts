@@ -5,7 +5,7 @@ import {
   ratings,
   User,
   Work
-} from '$services/ao3';
+} from 'limitless/api/ao3';
 import { createEmbedBuilder } from '../embed';
 
 export function createWorkEmbedBuilder(

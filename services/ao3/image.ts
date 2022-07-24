@@ -1,12 +1,12 @@
 import { createCanvas, loadImage, type Image } from '@napi-rs/canvas';
 
-import { symbolsOrigin, Work } from './work';
+import { symbolsOrigin, Work } from 'limitless/api/ao3';
 
 const imageCache = new Map<string, Image>();
 
 export async function drawLegendarySquare({
   rating,
-  orientation,
+  category,
   warning,
   complete
 }: Work['symbols']) {
@@ -16,9 +16,9 @@ export async function drawLegendarySquare({
   const ratingImage =
     imageCache.get(rating) ||
     (await loadImage(`${symbolsOrigin}${rating}.png`));
-  const orientationImage =
-    imageCache.get(orientation) ||
-    (await loadImage(`${symbolsOrigin}${orientation}.png`));
+  const categoryImage =
+    imageCache.get(category) ||
+    (await loadImage(`${symbolsOrigin}${category}.png`));
   const warningImage =
     imageCache.get(warning) ||
     (await loadImage(`${symbolsOrigin}${warning}.png`));
@@ -27,12 +27,12 @@ export async function drawLegendarySquare({
     (await loadImage(`${symbolsOrigin}${complete}.png`));
 
   imageCache.set(rating, ratingImage);
-  imageCache.set(orientation, orientationImage);
+  imageCache.set(category, categoryImage);
   imageCache.set(warning, warningImage);
   imageCache.set(complete, completeImage);
 
   ctx.drawImage(ratingImage, 0, 0, 25, 25);
-  ctx.drawImage(orientationImage, 31, 0, 25, 25);
+  ctx.drawImage(categoryImage, 31, 0, 25, 25);
   ctx.drawImage(warningImage, 0, 31, 25, 25);
   ctx.drawImage(completeImage, 31, 31, 25, 25);
 

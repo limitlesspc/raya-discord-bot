@@ -1,6 +1,6 @@
 import { AttachmentBuilder } from 'discord.js';
 import { createCanvas } from '@napi-rs/canvas';
-import { randomInt, vec2, Vector2 } from '@limitlesspc/limitless';
+import { randomInt, vec2, Vector2 } from 'limitless';
 
 import command from '$services/command';
 

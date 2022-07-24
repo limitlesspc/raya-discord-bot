@@ -1,4 +1,5 @@
-import { getText } from '$services/y7';
+import { getText } from 'limitless/api/y7';
+
 import command from '$services/command';
 
 export default command(

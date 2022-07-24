@@ -1,4 +1,4 @@
-import { shuffle } from '@limitlesspc/limitless';
+import { shuffle } from 'limitless';
 
 import prisma from '$services/prisma';
 import { incCount } from '$services/users';

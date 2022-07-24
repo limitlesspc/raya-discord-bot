@@ -1,5 +1,5 @@
 import { EmbedBuilder } from 'discord.js';
-import fetch from 'node-fetch';
+import fetch from 'cross-fetch';
 
 import { incCount } from '$services/users';
 import command from '$services/command';

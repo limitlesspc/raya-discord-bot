@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ActionRowBuilder, EmbedBuilder, SelectMenuBuilder } from 'discord.js';
-import { random } from '@limitlesspc/limitless';
+import { random } from 'limitless';
+import { getText } from 'limitless/api/y7';
 
 import command from '$services/command';
 import { part, Part } from './labyrinth';
 import items from './items';
 import questions from './questions';
-import { getText } from '$services/y7';
 
 const color = 0xfcc203;
 
