@@ -1,5 +1,6 @@
+import command from '@limitlesspc/limitless/discord/command';
+
 import prisma from '$services/prisma';
-import command from 'limitless/discord/command';
 import { NSFW_FILE_NAME } from './shared';
 
 export default command(

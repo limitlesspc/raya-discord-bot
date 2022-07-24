@@ -1,6 +1,6 @@
 import { createCanvas, loadImage, type Image } from '@napi-rs/canvas';
 
-import { symbolsOrigin, Work } from 'limitless/api/ao3';
+import { symbolsOrigin, Work } from '@limitlesspc/limitless/api/ao3';
 
 const imageCache = new Map<string, Image>();
 

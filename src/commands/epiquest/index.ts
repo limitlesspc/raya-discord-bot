@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ActionRowBuilder, EmbedBuilder, SelectMenuBuilder } from 'discord.js';
-import { random } from 'limitless';
-import { getText } from 'limitless/api/y7';
-import command from 'limitless/discord/command';
+import { random } from '@limitlesspc/limitless';
+import { getText } from '@limitlesspc/limitless/api/y7';
+import command from '@limitlesspc/limitless/discord/command';
 import { part, Part } from './labyrinth';
 import items from './items';
 import questions from './questions';

@@ -1,4 +1,4 @@
-import command from 'limitless/discord/command';
+import command from '@limitlesspc/limitless/discord/command';
 
 const codes: Record<string, string> = {
   a: '.-',

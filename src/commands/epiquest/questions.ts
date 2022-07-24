@@ -1,4 +1,4 @@
-import { random } from 'limitless';
+import { random } from '@limitlesspc/limitless';
 
 import items from './items';
 import type { Item } from './items';

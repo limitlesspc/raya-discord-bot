@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch';
-import command from 'limitless/discord/command';
+import command from '@limitlesspc/limitless/discord/command';
 import { generate } from '$services/dalle';
 import prisma from '$services/prisma';
 import { filesBucket } from '$services/storage';

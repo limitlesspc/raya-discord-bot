@@ -1,8 +1,8 @@
-import { shuffle } from 'limitless';
+import { shuffle } from '@limitlesspc/limitless';
+import command from '@limitlesspc/limitless/discord/command';
 
 import prisma from '$services/prisma';
 import { incCount } from '$services/users';
-import command from 'limitless/discord/command';
 
 const NUM_RATIOS = 50;
 

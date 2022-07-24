@@ -1,5 +1,6 @@
+import command from '@limitlesspc/limitless/discord/command';
+
 import { formatDuration, getVideo } from '$services/youtube';
-import command from 'limitless/discord/command';
 import { createEmbedBuilder } from '../embed';
 
 export default command(

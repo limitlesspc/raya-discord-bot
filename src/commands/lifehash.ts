@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-
 import { AttachmentBuilder } from 'discord.js';
 import { createCanvas } from '@napi-rs/canvas';
+import command from '@limitlesspc/limitless/discord/command';
 
 import { strTo16x16 } from '$services/hash';
-import command from 'limitless/discord/command';
 
 const size = 16;
 const zoom = 4;

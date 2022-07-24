@@ -1,7 +1,7 @@
 import { AttachmentBuilder } from 'discord.js';
 import { createCanvas } from '@napi-rs/canvas';
-import { randomInt, vec2, Vector2 } from 'limitless';
-import command from 'limitless/discord/command';
+import { randomInt, vec2, Vector2 } from '@limitlesspc/limitless';
+import command from '@limitlesspc/limitless/discord/command';
 
 const size = 1024;
 const r = size / 2;

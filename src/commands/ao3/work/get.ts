@@ -1,5 +1,5 @@
-import { getUser, getWork, getWorkId } from 'limitless/api/ao3';
-import command from 'limitless/discord/command';
+import { getUser, getWork, getWorkId } from '@limitlesspc/limitless/api/ao3';
+import command from '@limitlesspc/limitless/discord/command';
 import { createWorkEmbedBuilder } from './embed';
 
 export default command(

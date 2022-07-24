@@ -10,7 +10,7 @@ import type {
   CommandGroups,
   Commands,
   OptionValue
-} from 'limitless/discord/command';
+} from '@limitlesspc/limitless/discord/command';
 import client from './client';
 import * as rawCommands from './commands';
 

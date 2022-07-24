@@ -1,4 +1,4 @@
-import command from 'limitless/discord/command';
+import command from '@limitlesspc/limitless/discord/command';
 
 const answers = [
   'As I see it, yes.',

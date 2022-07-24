@@ -1,6 +1,6 @@
 import { EmbedBuilder } from 'discord.js';
 import fetch from 'cross-fetch';
-import command from 'limitless/discord/command';
+import command from '@limitlesspc/limitless/discord/command';
 import { incCount } from '$services/users';
 
 const CATEGORIES = [

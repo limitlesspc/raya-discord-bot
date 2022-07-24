@@ -6,7 +6,7 @@ import type {
   CommandGroups,
   CommandOptionType,
   Commands
-} from 'limitless/discord/command';
+} from '@limitlesspc/limitless/discord/command';
 import * as commandsData from './commands';
 
 import '$services/env';

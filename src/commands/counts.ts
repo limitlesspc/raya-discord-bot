@@ -1,7 +1,7 @@
+import command from '@limitlesspc/limitless/discord/command';
 import { EmbedBuilder } from 'discord.js';
 
 import { getUser } from '$services/users';
-import command from 'limitless/discord/command';
 
 export default command(
   {

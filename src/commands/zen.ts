@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch';
-import command from 'limitless/discord/command';
+import command from '@limitlesspc/limitless/discord/command';
 
 const url = 'https://api.github.com/zen';
 

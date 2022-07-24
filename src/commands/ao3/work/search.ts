@@ -4,15 +4,15 @@ import {
   searchFandoms,
   searchRelationships,
   searchTags
-} from 'limitless/api/ao3';
+} from '@limitlesspc/limitless/api/ao3';
 import {
   Category,
   OrderBy,
   Rating,
   searchWorks,
   Warning
-} from 'limitless/api/ao3/work/search';
-import command from 'limitless/discord/command';
+} from '@limitlesspc/limitless/api/ao3/work/search';
+import command from '@limitlesspc/limitless/discord/command';
 import { createWorkEmbedBuilder } from './embed';
 
 export default command(

@@ -1,5 +1,6 @@
+import command from '@limitlesspc/limitless/discord/command';
+
 import prisma from '$services/prisma';
-import command from 'limitless/discord/command';
 import { extensions, sendFile, Type, types } from './shared';
 
 export default command(

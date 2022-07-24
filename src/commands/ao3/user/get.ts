@@ -1,5 +1,5 @@
-import { getNameFromURL, getUser } from 'limitless/api/ao3';
-import command from 'limitless/discord/command';
+import { getNameFromURL, getUser } from '@limitlesspc/limitless/api/ao3';
+import command from '@limitlesspc/limitless/discord/command';
 import { createEmbedBuilder } from '../embed';
 
 export default command(

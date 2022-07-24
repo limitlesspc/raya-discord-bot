@@ -1,5 +1,5 @@
+import command from '@@limitlesspc/limitlesspc/@limitlesspc/limitless/discord/command';
 import prisma from '$services/prisma';
-import command from 'limitless/discord/command';
 
 export default command(
   {

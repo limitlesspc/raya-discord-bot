@@ -1,5 +1,5 @@
 import { EmbedBuilder } from 'discord.js';
-import command from 'limitless/discord/command';
+import command from '@limitlesspc/limitless/discord/command';
 
 export default command(
   {

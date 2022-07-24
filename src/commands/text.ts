@@ -1,5 +1,5 @@
-import { getText } from 'limitless/api/y7';
-import command from 'limitless/discord/command';
+import { getText } from '@limitlesspc/limitless/api/y7';
+import command from '@limitlesspc/limitless/discord/command';
 
 export default command(
   {
