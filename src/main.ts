@@ -5,14 +5,14 @@ import {
   InteractionType
 } from 'discord.js';
 
-import client from './client';
-import * as rawCommands from './commands';
 import type {
   Command,
   CommandGroups,
   Commands,
   OptionValue
-} from '$services/command';
+} from 'limitless/discord/command';
+import client from './client';
+import * as rawCommands from './commands';
 
 const { default: oddNameCommands = {}, ...normalCommands } = rawCommands;
 const commands = Object.fromEntries(

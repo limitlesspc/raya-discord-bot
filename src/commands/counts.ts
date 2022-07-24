@@ -1,7 +1,7 @@
 import { EmbedBuilder } from 'discord.js';
 
 import { getUser } from '$services/users';
-import command from '$services/command';
+import command from 'limitless/discord/command';
 
 export default command(
   {

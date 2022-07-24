@@ -1,6 +1,5 @@
 import { AttachmentBuilder } from 'discord.js';
-
-import command from '$services/command';
+import command from 'limitless/discord/command';
 import prisma from '$services/prisma';
 
 const stickenFileName = 'stick.png';

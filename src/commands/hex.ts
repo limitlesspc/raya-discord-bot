@@ -1,7 +1,6 @@
 import { AttachmentBuilder } from 'discord.js';
 import { createCanvas } from '@napi-rs/canvas';
-
-import command from '$services/command';
+import command from 'limitless/discord/command';
 
 const size = 16;
 

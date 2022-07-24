@@ -1,4 +1,4 @@
-import command from '$services/command';
+import command from 'limitless/discord/command';
 import { encrypt } from './encrypt';
 
 export default command(

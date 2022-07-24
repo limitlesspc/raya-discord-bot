@@ -2,8 +2,7 @@
 import { ActionRowBuilder, EmbedBuilder, SelectMenuBuilder } from 'discord.js';
 import { random } from 'limitless';
 import { getText } from 'limitless/api/y7';
-
-import command from '$services/command';
+import command from 'limitless/discord/command';
 import { part, Part } from './labyrinth';
 import items from './items';
 import questions from './questions';

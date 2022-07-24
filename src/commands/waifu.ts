@@ -1,7 +1,6 @@
 import { ChannelType, ColorResolvable, EmbedBuilder } from 'discord.js';
-
+import command from 'limitless/discord/command';
 import { incCount } from '$services/users';
-import command from '$services/command';
 import { Fetcher } from '$services/openapi';
 import type { paths } from '$openapi/waifu';
 

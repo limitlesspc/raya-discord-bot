@@ -1,13 +1,13 @@
 import { REST } from '@discordjs/rest';
 import { ApplicationCommandOptionType, Routes } from 'discord-api-types/v10';
 
-import * as commandsData from './commands';
 import type {
   Command,
   CommandGroups,
   CommandOptionType,
   Commands
-} from '$services/command';
+} from 'limitless/discord/command';
+import * as commandsData from './commands';
 
 import '$services/env';
 

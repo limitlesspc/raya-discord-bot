@@ -2,7 +2,7 @@ import { shuffle } from 'limitless';
 
 import prisma from '$services/prisma';
 import { incCount } from '$services/users';
-import command from '$services/command';
+import command from 'limitless/discord/command';
 
 const NUM_RATIOS = 50;
 

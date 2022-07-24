@@ -4,7 +4,7 @@ import { AttachmentBuilder } from 'discord.js';
 import { createCanvas } from '@napi-rs/canvas';
 
 import { strTo16x16 } from '$services/hash';
-import command from '$services/command';
+import command from 'limitless/discord/command';
 
 const size = 16;
 const zoom = 4;

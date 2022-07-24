@@ -12,7 +12,7 @@ import {
   searchWorks,
   Warning
 } from 'limitless/api/ao3/work/search';
-import command from '$services/command';
+import command from 'limitless/discord/command';
 import { createWorkEmbedBuilder } from './embed';
 
 export default command(

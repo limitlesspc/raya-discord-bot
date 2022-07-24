@@ -1,4 +1,4 @@
-import command from '$services/command';
+import command from 'limitless/discord/command';
 import { getLastUsedAt, WAIT_MILLIS } from './shared';
 
 export default command(

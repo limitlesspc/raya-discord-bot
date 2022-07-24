@@ -1,8 +1,7 @@
 import { EmbedBuilder } from 'discord.js';
 import fetch from 'cross-fetch';
-
+import command from 'limitless/discord/command';
 import { incCount } from '$services/users';
-import command from '$services/command';
 
 interface Response {
   url: string;

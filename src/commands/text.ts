@@ -1,6 +1,5 @@
 import { getText } from 'limitless/api/y7';
-
-import command from '$services/command';
+import command from 'limitless/discord/command';
 
 export default command(
   {

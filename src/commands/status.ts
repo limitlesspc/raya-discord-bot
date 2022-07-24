@@ -1,8 +1,7 @@
 import { arch, memoryUsage, platform, uptime, versions } from 'node:process';
 import { cpus, freemem, totalmem } from 'node:os';
 import { EmbedBuilder, version } from 'discord.js';
-
-import command from '$services/command';
+import command from 'limitless/discord/command';
 
 export default command(
   {

@@ -1,4 +1,4 @@
-import command from '$services/command';
+import command from 'limitless/discord/command';
 
 const chars = 'abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ0123456789';
 const superscript =
