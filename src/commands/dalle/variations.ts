@@ -1,22 +1,22 @@
 import fetch from 'node-fetch';
 import command from '@limitlesspc/limitless/discord/command';
 
-import { generate } from '$services/dalle';
+import { variations } from '$services/dalle';
 import prisma from '$services/prisma';
 import { filesBucket } from '$services/storage';
 import { getLastUsedAt, WAIT_MILLIS } from './shared';
 
 export default command(
   {
-    desc: `Create 4 images from a prompt using OpenAI's DALL·E 2`,
+    desc: `Create 3 images based on an input image using OpenAI's DALL·E 2`,
     options: {
-      prompt: {
-        type: 'string',
-        desc: 'Prompt to generate'
+      image: {
+        type: 'attachment',
+        desc: 'Image to generate variations from'
       }
     }
   },
-  async (i, { prompt }) => {
+  async (i, { image }) => {
     if (i.user.bot) return i.reply('Bots cannot use DALL·E 2');
     await i.deferReply();
 
@@ -30,7 +30,10 @@ export default command(
       }
     }
 
-    const task = await generate(prompt);
+    if (!image.width || !image.height || image.width !== image.height)
+      return i.editReply('Image must be square');
+
+    const task = await variations(image.url);
     if (task.error)
       return i.editReply(
         `Error \`${task.error}\`: your prompt doesn't follow the content policy`
@@ -50,7 +53,7 @@ export default command(
     await i.editReply('Uploading images...');
 
     const urls: string[] = [];
-    for (const { id, url } of task.files) {
+    for (const { id, url } of [image, ...task.files]) {
       const response = await fetch(url);
       const path = `dalle/${id}.webp`;
       const stream = filesBucket.file(path).createWriteStream({
@@ -58,10 +61,13 @@ export default command(
         metadata: {
           metadata: {
             uid: i.user.id,
-            prompt
+            ...(url !== image.url
+              ? { variationFrom: image.url }
+              : { original: 'true' })
           }
         }
       });
+      if (!response.body) return i.editReply('Error: no response body');
       response.body.pipe(stream);
       const fileURL = await new Promise<string>((resolve, reject) =>
         stream
@@ -74,7 +80,9 @@ export default command(
       console.log(`Uploaded ${fileURL}`);
     }
 
-    return i.editReply(`${prompt}
-${urls.join(' ')}`);
+    const [original, ...variationURLs] = urls;
+    return i.editReply(`Original: ${original}
+
+Variations: ${variationURLs.join(' ')}`);
   }
 );

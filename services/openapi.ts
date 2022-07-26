@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import fetch, { Headers, Request, Response } from 'cross-fetch';
+import fetch, { Headers, Request, Response } from 'node-fetch';
 
 if (!globalThis.fetch) {
   globalThis.fetch = fetch as any;
