@@ -16,7 +16,7 @@
     "deploy": "node -r @swc-node/register src/deploy.ts"
   },
   "dependencies": {
-    "@discordjs/rest": "1.0.0",
+    "@discordjs/rest": "1.0.1",
     "@google-cloud/storage": "^6.2.3",
     "@googleapis/customsearch": "^0.3.2",
     "@googleapis/youtube": "^6.0.0",
@@ -34,10 +34,10 @@
   },
   "devDependencies": {
     "@swc-node/register": "^1.5.1",
-    "@types/node": "18.0.6",
+    "@types/node": "18.6.1",
     "@types/node-fetch": "2",
-    "@typescript-eslint/eslint-plugin": "5.30.7",
-    "@typescript-eslint/parser": "5.30.7",
+    "@typescript-eslint/eslint-plugin": "5.31.0",
+    "@typescript-eslint/parser": "5.31.0",
     "ava": "^4.3.1",
     "eslint": "8.20.0",
     "eslint-config-airbnb-base": "^15.0.0",
