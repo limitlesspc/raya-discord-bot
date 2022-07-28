@@ -106,7 +106,7 @@ export async function startTask(task: Task) {
         clearInterval(interval);
         resolve(nextTask);
       }
-    }, 1000);
+    }, 3000);
   });
   return {
     files: (finishedTask.generations?.data || []).map(({ id, generation }) => ({
