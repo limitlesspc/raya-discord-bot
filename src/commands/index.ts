@@ -10,6 +10,7 @@ export { default as dog } from './dog';
 export { default as epiquest } from './epiquest';
 export { default as hex } from './hex';
 export { default as hiragana } from './hiragana';
+export { default as img } from './img';
 export { default as katakana } from './katakana';
 export { default as lifehash } from './lifehash';
 export { default as morse } from './morse';
