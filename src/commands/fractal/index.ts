@@ -67,6 +67,7 @@ export default command(
       coords,
       iterations
     );
+    await i.editReply('Uploading fractal...');
 
     const path = `fractals/${nanoid()}.png`;
     const stream = filesBucket.file(path).createWriteStream({
