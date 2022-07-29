@@ -82,9 +82,7 @@ export async function render(
   iterations = 32
 ): Promise<Buffer> {
   console.log(url, width, height);
-  const fragmentSource = await GL.loadFile(
-    resolve(__dirname, './fractal.frag')
-  );
+  const fragmentSource = await GL.loadFile(resolve(__dirname, './shader.frag'));
   const gl = await GL.screen(
     width * shapeSize,
     height * shapeSize,
