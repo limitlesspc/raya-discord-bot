@@ -1,11 +1,12 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { join } from 'node:path';
-import { AttachmentBuilder } from 'discord.js';
 import { randomInt } from '@limitlesspc/limitless';
+import { nanoid } from 'nanoid';
 import command from '@limitlesspc/limitless/discord/command';
 
 import GL from '$services/gl';
+import { filesBucket } from '$services/storage';
 
 const MAX_IMAGE_SIZE = 1024 ** 2;
 
@@ -67,10 +68,26 @@ export default command(
       iterations
     );
 
-    return i.editReply({
-      content: null,
-      files: [new AttachmentBuilder(buffer, { name: 'fractal.png' })]
+    const path = `fractals/${nanoid()}.png`;
+    const stream = filesBucket.file(path).createWriteStream({
+      gzip: true,
+      metadata: {
+        metadata: {
+          uid: i.user.id,
+          source: url
+        }
+      }
     });
+    stream.end(buffer);
+    const fileURL = await new Promise<string>((resolve, reject) =>
+      stream
+        .on('finish', () =>
+          resolve(`https://${process.env.FILES_DOMAIN}/${path}`)
+        )
+        .on('error', reject)
+    );
+
+    return i.editReply(fileURL);
   }
 );
 
