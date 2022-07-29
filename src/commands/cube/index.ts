@@ -14,14 +14,15 @@ export default command(
     options: {
       image: {
         type: 'attachment',
-        desc: 'The image to pixel sort'
+        desc: 'The image to pixel sort',
+        optional: true
       }
     }
   },
   async (i, { image }) => {
     await i.deferReply();
     const url =
-      image.url || i.user.displayAvatarURL({ extension: 'png', size: 512 });
+      image?.url || i.user.displayAvatarURL({ extension: 'png', size: 512 });
 
     const gl = new GL(size, size, true);
     await gl.createProgramFromPaths(
@@ -36,7 +37,7 @@ export default command(
       { name: 'uv', type: 'vec2' }
     ]);
 
-    await gl.createTexture(url, { isGif: image.contentType === 'image/gif' });
+    await gl.createTexture(url, { isGif: image?.contentType === 'image/gif' });
 
     const projectionMatrix = mat4.perspective(
       mat4.create(),
