@@ -25,10 +25,15 @@ export default command(
         type: 'attachment',
         desc: 'The image to fractalize',
         optional: true
+      },
+      user: {
+        type: 'user',
+        desc: 'The user PFP to fractalize',
+        optional: true
       }
     }
   },
-  async (i, { iterations, image }) => {
+  async (i, { iterations, image, user = i.user }) => {
     let url: string;
     let width: number;
     let height: number;
@@ -40,7 +45,7 @@ export default command(
         return i.reply('Image is too large');
     } else {
       const size = 512;
-      url = i.user.displayAvatarURL({ extension: 'png', size });
+      url = user.displayAvatarURL({ extension: 'png', size });
       width = height = size;
     }
 
