@@ -100,7 +100,6 @@ export async function render(
   coords: [x: number, y: number][],
   iterations: number
 ): Promise<Buffer> {
-  console.log({ shapeSize, url, width, height, coords, iterations });
   const fragmentSource = await GL.loadFile(join(__dirname, './shader.frag'));
   const gl = await GL.screen(
     width * shapeSize,
