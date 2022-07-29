@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { createReadStream, ReadStream } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
+import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { exec } from 'node:child_process';
 
@@ -116,7 +116,7 @@ export default class GL {
   ): Promise<GL> {
     const gl = new GL(width, height);
     gl.createProgramFromSource(
-      vertexSource || (await GL.loadFile(resolve(__dirname, './screen.vert'))),
+      vertexSource || (await GL.loadFile(join(__dirname, './screen.vert'))),
       fragmentSource
     );
     gl.screen();
@@ -550,11 +550,11 @@ export default class GL {
     const { width, height } = this;
 
     const encoder = new GIFEncoder(width, height);
-    encoder.writeHeader();
     if (!noRepeat) encoder.setRepeat(0);
     if (quality !== undefined) encoder.setQuality(quality);
     encoder.setFrameRate(fps);
 
+    encoder.writeHeader();
     for (let i = 0; i < frames; i++) {
       prerender?.();
       this.bindTextures(i);
@@ -566,7 +566,7 @@ export default class GL {
     }
     encoder.finish();
 
-    return encoder.read();
+    return encoder.read()!;
   }
 
   async mp4Stream(
@@ -587,7 +587,7 @@ export default class GL {
     const ctx = canvas.getContext('2d');
     const imageData = ctx.createImageData(width, height);
 
-    const tmpDir = resolve(
+    const tmpDir = join(
       tmpdir(),
       `${process.env.PREFIX}${process.hrtime().join('_')}/`
     );
@@ -601,7 +601,7 @@ export default class GL {
       imageData.data.set(this.buffer());
       ctx.putImageData(imageData, 0, 0);
 
-      const path = resolve(tmpDir, `frame${i.toString().padStart(4, '0')}.png`);
+      const path = join(tmpDir, `frame${i.toString().padStart(4, '0')}.png`);
       await writeFile(path, canvas.toBuffer('image/png'));
 
       await new Promise(resolve => setImmediate(resolve));
@@ -629,7 +629,7 @@ export default class GL {
         }
       ).once('exit', resolve)
     );
-    const outputPath = resolve(tmpDir, 'full.mp4');
+    const outputPath = join(tmpDir, 'full.mp4');
     return createReadStream(outputPath);
   }
 

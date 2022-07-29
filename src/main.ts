@@ -80,14 +80,29 @@ client
             Object.entries(options).map(([name, { type, default: d }]) => {
               let value: OptionValue | null;
               switch (type) {
+                case 'string':
+                  value = i.options.getString(name);
+                  break;
+                case 'int':
+                  value = i.options.getInteger(name);
+                  break;
+                case 'float':
+                  value = i.options.getNumber(name);
+                  break;
+                case 'bool':
+                  value = i.options.getBoolean(name);
+                  break;
+                case 'choice':
+                  value = i.options.getString(name);
+                  break;
                 case 'user':
                   value = i.options.getUser(name);
                   break;
+                case 'channel':
+                  value = i.options.getChannel(name);
+                  break;
                 case 'attachment':
                   value = i.options.getAttachment(name);
-                  break;
-                default:
-                  value = i.options.get(name)?.value || '';
               }
               return [
                 name,

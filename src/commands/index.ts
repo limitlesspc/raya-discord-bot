@@ -17,6 +17,7 @@ export { default as katakana } from './katakana';
 export { default as lifehash } from './lifehash';
 export { default as morse } from './morse';
 export { default as neko } from './neko';
+export { default as noise } from './noise';
 export { default as norway } from './norway';
 export { default as owo } from './owo';
 export { default as pfp } from './pfp';

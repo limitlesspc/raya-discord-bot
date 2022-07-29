@@ -1,9 +1,10 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { resolve } from 'node:path';
+import { join } from 'node:path';
 import { AttachmentBuilder } from 'discord.js';
 import { randomInt } from '@limitlesspc/limitless';
 import command from '@limitlesspc/limitless/discord/command';
+
 import GL from '$services/gl';
 
 const MAX_IMAGE_SIZE = 1024 ** 2;
@@ -79,10 +80,10 @@ export async function render(
   width: number,
   height: number,
   coords: [x: number, y: number][],
-  iterations = 32
+  iterations: number
 ): Promise<Buffer> {
-  console.log(url, width, height);
-  const fragmentSource = await GL.loadFile(resolve(__dirname, './shader.frag'));
+  console.log({ shapeSize, url, width, height, coords, iterations });
+  const fragmentSource = await GL.loadFile(join(__dirname, './shader.frag'));
   const gl = await GL.screen(
     width * shapeSize,
     height * shapeSize,

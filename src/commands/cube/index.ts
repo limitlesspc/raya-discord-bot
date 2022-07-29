@@ -1,4 +1,4 @@
-import { resolve } from 'node:path';
+import { join } from 'node:path';
 import { AttachmentBuilder } from 'discord.js';
 import { mat4 } from 'gl-matrix';
 import command from '@limitlesspc/limitless/discord/command';
@@ -25,8 +25,8 @@ export default command(
 
     const gl = new GL(size, size, true);
     await gl.createProgramFromPaths(
-      resolve(__dirname, './shader.vert'),
-      resolve(__dirname, './shader.frag')
+      join(__dirname, './shader.vert'),
+      join(__dirname, './shader.frag')
     );
 
     gl.createVertexBuffer(GL.unitCubeTextured.vertexData);
@@ -51,7 +51,7 @@ export default command(
     let angle = 0;
 
     const attachment = new AttachmentBuilder(
-      await gl.mp4Stream(frames, resolve(__dirname, './cube.mp3'), {
+      await gl.mp4Stream(frames, join(__dirname, './cube.mp3'), {
         fps: 10,
         prerender: () => {
           gl.background(0, 0, 0, 1);

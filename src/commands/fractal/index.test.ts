@@ -13,6 +13,6 @@ const url =
   'https://cdn.discordapp.com/attachments/769209668705845308/989251745316229140/Archive_of_Our_Own_logo.png';
 
 (async () => {
-  const buffer = await render(shapeSize, url, 351, 240, coords);
+  const buffer = await render(shapeSize, url, 351, 240, coords, 32);
   await writeFile(join(__dirname, 'fractal-gl.png'), buffer);
 })();
