@@ -8,7 +8,7 @@ import command from '@limitlesspc/limitless/discord/command';
 import GL from '$services/gl';
 import { filesBucket } from '$services/storage';
 
-const MAX_IMAGE_SIZE = 1024 ** 2;
+const MAX_IMAGE_SIZE = 2048;
 
 export default command(
   {
@@ -41,7 +41,10 @@ export default command(
       url = image.url;
       width = image.width || 0;
       height = image.height || 0;
-      if ((image.width || 0) * (image.height || 0) > MAX_IMAGE_SIZE)
+      if (
+        (image.width || 0) > MAX_IMAGE_SIZE ||
+        (image.height || 0) > MAX_IMAGE_SIZE
+      )
         return i.reply('Image is too large');
     } else {
       const size = 512;
