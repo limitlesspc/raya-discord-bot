@@ -16,6 +16,7 @@ export default command(
     options: {}
   },
   async i => {
+    await i.deferReply();
     const response = await fetch('https://api.thedogapi.com/v1/images/search');
     const data = (await response.json()) as Response;
     const [dog] = data;
@@ -29,6 +30,6 @@ export default command(
         text: 'Powered by The Dog API',
         iconURL: 'https://thedogapi.com/favicon.ico'
       });
-    return i.reply({ embeds: [embed] });
+    return i.editReply({ embeds: [embed] });
   }
 );

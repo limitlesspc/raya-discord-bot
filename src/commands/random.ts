@@ -10,6 +10,7 @@ export default command(
     options: {}
   },
   async i => {
+    await i.deferReply();
     const canvas = createCanvas(size, size);
     const ctx = canvas.getContext('2d');
 
@@ -22,7 +23,7 @@ export default command(
     ctx.putImageData(image, 0, 0);
 
     console.log('Done');
-    return i.reply({
+    return i.editReply({
       files: [new AttachmentBuilder(canvas.toBuffer('image/png'))]
     });
   }

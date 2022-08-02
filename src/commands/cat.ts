@@ -16,6 +16,7 @@ export default command(
     options: {}
   },
   async i => {
+    await i.deferReply();
     const response = await fetch('https://api.thecatapi.com/v1/images/search');
     const data = (await response.json()) as Response;
     const [cat] = data;
@@ -29,6 +30,6 @@ export default command(
         text: 'Powered by The Cat API',
         iconURL: 'https://thecatapi.com/favicon.ico'
       });
-    return i.reply({ embeds: [embed] });
+    return i.editReply({ embeds: [embed] });
   }
 );

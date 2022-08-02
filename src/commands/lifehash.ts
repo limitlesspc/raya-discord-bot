@@ -21,6 +21,7 @@ export default command(
     }
   },
   async (i, { message }) => {
+    await i.deferReply();
     const canvas = createCanvas(width, width);
     const ctx = canvas.getContext('2d');
     ctx.fillStyle = '#fff';
@@ -59,7 +60,7 @@ export default command(
       }
     }
 
-    return i.reply({
+    return i.editReply({
       files: [new AttachmentBuilder(canvas.toBuffer('image/png'))]
     });
   }

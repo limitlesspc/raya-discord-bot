@@ -1,5 +1,7 @@
 import { AttachmentBuilder } from 'discord.js';
 import command from '@limitlesspc/limitless/discord/command';
+import type { Chicken } from '@prisma/client';
+
 import prisma from '$services/prisma';
 
 const stickenFileName = 'stick.png';
@@ -20,11 +22,10 @@ export default command(
     let name: string;
     if (sticken) name = stickenFileName;
     else {
-      const count = await prisma.chicken.count();
-      console.log(count);
-      const skip = Math.floor(Math.random() * count);
-      console.log(skip);
-      const chicken = await prisma.chicken.findFirstOrThrow({ skip });
+      const [chicken]: [Chicken] = await prisma.$queryRaw`SELECT name
+      FROM "Chicken"
+      ORDER BY random()
+      LIMIT 1;`;
       name = chicken.name;
     }
     const url = `https://${process.env.FILES_DOMAIN}/chicken/${name}`;

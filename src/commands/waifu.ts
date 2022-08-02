@@ -38,6 +38,7 @@ export default command(
         content: "This isn't a nsfw channel you cheeky boi",
         ephemeral: true
       });
+    await i.deferReply();
 
     const { data } = await getRandom({
       gif: option === 'gif',
@@ -64,7 +65,7 @@ export default command(
         url: image.source
       });
 
-    await i.reply({ embeds: [embed] });
+    await i.editReply({ embeds: [embed] });
     return incCount(i.user.id, 'weeb');
   }
 );

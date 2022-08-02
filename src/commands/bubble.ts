@@ -1,4 +1,6 @@
 import command from '@limitlesspc/limitless/discord/command';
+import type { SpeechBubble } from '@prisma/client';
+
 import prisma from '$services/prisma';
 
 export default command(
@@ -7,9 +9,10 @@ export default command(
     options: {}
   },
   async i => {
-    const count = await prisma.speechBubble.count();
-    const skip = Math.floor(Math.random() * count);
-    const { name } = await prisma.speechBubble.findFirstOrThrow({ skip });
+    const [{ name }]: [SpeechBubble] = await prisma.$queryRaw`SELECT name
+    FROM "SpeechBubble"
+    ORDER BY random()
+    LIMIT 1;`;
     return i.reply(
       `https://${process.env.FILES_DOMAIN}/speech-bubbles/${name}`
     );

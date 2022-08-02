@@ -7,11 +7,12 @@ export default command(
     options: {}
   },
   async i => {
+    await i.deferReply();
     try {
       const src = await getText();
-      return await i.reply(src);
+      return await i.editReply(src);
     } catch {
-      return i.reply('So sad, looks like yyyyyyy.info is down ):');
+      return i.editReply('So sad, looks like yyyyyyy.info is down ):');
     }
   }
 );

@@ -9,8 +9,9 @@ export default command(
     options: {}
   },
   async i => {
+    await i.deferReply();
     const response = await fetch(url);
     const text = await response.text();
-    return i.reply(text);
+    return i.editReply(text);
   }
 );

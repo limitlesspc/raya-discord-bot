@@ -1,5 +1,6 @@
 import { shuffle } from '@limitlesspc/limitless';
 import command from '@limitlesspc/limitless/discord/command';
+import type { Ratio } from '@prisma/client';
 
 import prisma from '$services/prisma';
 import { incCount } from '$services/users';
@@ -13,14 +14,10 @@ export default command(
   },
   async i => {
     await i.deferReply();
-    const count = await prisma.ratio.count();
-    const skip = Math.floor(Math.random() * Math.max(count - NUM_RATIOS, 0));
-    const ratios = await prisma.ratio.findMany({
-      select: {
-        content: true
-      },
-      skip
-    });
+    const ratios: Ratio[] = await prisma.$queryRaw`SELECT content
+    FROM "Ratio"
+    ORDER BY random()
+    LIMIT ${NUM_RATIOS}`;
     const texts = shuffle(ratios.map(({ content }) => content));
     await incCount(i.user.id, 'ratio');
     return i.editReply(

@@ -56,6 +56,7 @@ export default command(
     }
   },
   async (i, { category }) => {
+    await i.deferReply();
     const response = await fetch(`https://nekos.best/api/v2/${category}`);
     const data = (await response.json()) as Response;
     const result = data.results[0];
@@ -78,7 +79,7 @@ export default command(
     if (source_url) embed.setURL(source_url);
     if (anime_name) embed.setTitle(anime_name);
 
-    await i.reply({ embeds: [embed] });
+    await i.editReply({ embeds: [embed] });
     return incCount(i.user.id, 'weeb');
   }
 );

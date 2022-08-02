@@ -17,6 +17,7 @@ export default command(
     options: {}
   },
   async i => {
+    await i.deferReply();
     const response = await fetch('https://api.catboys.com/img');
     const data = (await response.json()) as Response;
     const { url, artist, artist_url, source_url } = data;
@@ -33,7 +34,7 @@ export default command(
     if (artist_url.startsWith('http'))
       embed.setAuthor({ name: artist, url: artist_url });
 
-    await i.reply({ embeds: [embed] });
+    await i.editReply({ embeds: [embed] });
     return incCount(i.user.id, 'weeb');
   }
 );
