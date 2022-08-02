@@ -13,6 +13,7 @@ export default command(
     }
   },
   async (i, { ratios }) => {
+    await i.deferReply();
     const ratioStrs = ratios
       .split('+')
       .map(s => s.trim())
@@ -21,6 +22,6 @@ export default command(
       data: ratioStrs.map(s => ({ content: s })),
       skipDuplicates: true
     });
-    return i.reply('Added to ratios');
+    return i.editReply('Added to ratios');
   }
 );

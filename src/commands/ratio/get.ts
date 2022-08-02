@@ -12,6 +12,7 @@ export default command(
     options: {}
   },
   async i => {
+    await i.deferReply();
     const count = await prisma.ratio.count();
     const skip = Math.floor(Math.random() * Math.max(count - NUM_RATIOS, 0));
     const ratios = await prisma.ratio.findMany({
@@ -22,7 +23,7 @@ export default command(
     });
     const texts = shuffle(ratios.map(({ content }) => content));
     await incCount(i.user.id, 'ratio');
-    return i.reply(
+    return i.editReply(
       texts.join(' + ') ||
         'Looks like there are no ratios, use `/ratio add` to add some'
     );

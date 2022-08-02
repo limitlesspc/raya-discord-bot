@@ -16,6 +16,7 @@ export default command(
     }
   },
   async (i, { sticken }) => {
+    await i.deferReply();
     let name: string;
     if (sticken) name = stickenFileName;
     else {
@@ -28,10 +29,10 @@ export default command(
     }
     const url = `https://${process.env.FILES_DOMAIN}/chicken/${name}`;
     if (name.endsWith('.mp3'))
-      return i.reply({
+      return i.editReply({
         content: null,
         files: [new AttachmentBuilder(url)]
       });
-    return i.reply(url);
+    return i.editReply(url);
   }
 );
