@@ -40,7 +40,7 @@ export default class ImageSearch {
       start
     });
     const item = result.data.items?.[0];
-    if (!item?.link) return '';
+    if (!item?.link) throw new Error('No results');
     return (urls[start - 1] = item.link);
   }
 }
