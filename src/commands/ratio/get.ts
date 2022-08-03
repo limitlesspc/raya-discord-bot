@@ -14,9 +14,9 @@ export default command(
   },
   async i => {
     await i.deferReply();
-    const ratios: Ratio[] = await prisma.$queryRaw`SELECT content
-    FROM "Ratio"
-    ORDER BY random()
+    const ratios = await prisma.$queryRaw<Ratio[]>`SELECT content
+    FROM Ratio
+    ORDER BY RAND()
     LIMIT ${NUM_RATIOS}`;
     const texts = shuffle(ratios.map(({ content }) => content));
     await incCount(i.user.id, 'ratio');

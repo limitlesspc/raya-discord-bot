@@ -9,9 +9,9 @@ export default command(
     options: {}
   },
   async i => {
-    const [{ name }]: [SpeechBubble] = await prisma.$queryRaw`SELECT name
-    FROM "SpeechBubble"
-    ORDER BY random()
+    const [{ name }] = await prisma.$queryRaw<[SpeechBubble]>`SELECT name
+    FROM SpeechBubble
+    ORDER BY RAND()
     LIMIT 1;`;
     return i.reply(
       `https://${process.env.FILES_DOMAIN}/speech-bubbles/${name}`

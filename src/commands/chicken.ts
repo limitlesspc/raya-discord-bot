@@ -22,9 +22,9 @@ export default command(
     let name: string;
     if (sticken) name = stickenFileName;
     else {
-      const [chicken]: [Chicken] = await prisma.$queryRaw`SELECT name
-      FROM "Chicken"
-      ORDER BY random()
+      const [chicken] = await prisma.$queryRaw<[Chicken]>`SELECT name
+      FROM Chicken
+      ORDER BY RAND()
       LIMIT 1;`;
       name = chicken.name;
     }

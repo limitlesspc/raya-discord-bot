@@ -4,13 +4,13 @@ import {
   EmbedBuilder,
   InteractionType
 } from 'discord.js';
-
 import type {
   Command,
   CommandGroups,
   Commands,
   OptionValue
 } from '@limitlesspc/limitless/discord/command';
+
 import client from './client';
 import * as rawCommands from './commands';
 
